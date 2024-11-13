@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+import { getCollection } from "astro:content";
+
+const blogEntries = await getCollection("blog");
+---
+
+<Layout title="Welcome to Astro.">
+  <h1>My <span class="text-gradient">Astro</span> learning blog</h1>
+  <p>This is where I will post about my journey learning Astro.</p>
+  <ul role="list" class="link-card-grid">
+    {
+      blogEntries.map((entry) => (
+        <Card
+          href={`/${Astro.currentLocale}/${entry.slug}/`}
+          title={entry.data.title}
+          body={entry.data.description}
+        />
+      ))
+    }
+  </ul>
+</Layout>
