@@ -5,20 +5,25 @@ import { locales, defaultLocale } from "./src/i18n/config";
 
 // https://astro.build/config
 export default defineConfig({
+  output: "static",
   site: "https://alejandrofernandez.dev",
   i18n: {
     defaultLocale: defaultLocale,
-    locales: locales,
+    locales: [...locales],
     fallback: { es: "en" },
     routing: {
       prefixDefaultLocale: true,
-      fallbackType: "rewrite",
     },
+  },
+  redirects: {
+    "/": `/${defaultLocale}/`,
+    "/about/": `/${defaultLocale}/about/`,
+    "/blog/": `/${defaultLocale}/blog/`,
   },
   integrations: [
     sitemap({
       changefreq: "monthly",
-      priority: 0.5,
+      priority: 1.0,
       lastmod: new Date(),
       i18n: {
         defaultLocale: defaultLocale,

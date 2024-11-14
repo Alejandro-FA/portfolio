@@ -2,10 +2,11 @@ export const ui = {
   en: {
     "nav.home": "Home",
     "nav.about": "About",
-    "nav.twitter": "Twitter",
+    "nav.blog": "Blog",
   },
-  fr: {
-    "nav.home": "Accueil",
-    "nav.about": "À propos",
+  es: {
+    "nav.home": "Inicio",
+    "nav.about": "Acerca de mí",
+    "nav.blog": "Blog",
   },
 } as const;

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Avoid masking errors
+set -uo pipefail
+
+run_checks () {
+    # Ensure that webpage builds successfully
+    npm run build || return 1
+}
+
+cleanup_and_exit() {
+    local exit_code=$? # Capture the last error code
+    local message=$1
+
+    # Exit with the last error code after printing the provided message
+    if [[ "${exit_code}" -eq 0 ]]; then
+        echo -e "\033[1;32m${message}\033[0m" # Print the message in bold green
+    else
+        echo -e "\033[1;31m${message}\033[0m" # Print the message in bold red
+    fi
+    exit "${exit_code}"
+}
+
+# Main script logic
+run_checks || cleanup_and_exit "Failed to build the webpage. Push aborted."
+cleanup_and_exit "Pre-push checks passed. Pushing commits."

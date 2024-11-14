@@ -4,28 +4,30 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
+    "build": "astro build",
+    "preview": "npm run build && wrangler pages dev",
+    "astro": "astro",
     "upgrade-deps": "npm update --include=dev --save=true",
     "lint:shell": "shellcheck --enable=all .githooks/*",
-    "lint:ts": "eslint",
-    "lint": "npm run lint:shell && npm run lint:astro",
-    "serve": "wrangler pages dev --port=${npm_package_config_port}",
-    "predeploy": "npm run build",
-    "deploy": "wrangler pages deploy --branch=${DEPLOY_BRANCH}"
+    "lint:ts": "eslint src functions",
+    "lint:astro": "astro check --minimumFailingSeverity hint",
+    "lint": "npm run lint:shell && npm run lint:astro && npm run lint:ts",
+    "deploy": "npm run build && wrangler pages deploy --branch=${DEPLOY_BRANCH}"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^4.16.10"
+    "astro": "^4.16.12"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@cloudflare/workers-types": "^4.20241112.0",
     "@eslint/js": "^9.14.0",
     "@types/eslint__js": "^8.42.3",
     "eslint": "^9.14.0",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.14.0"
+    "shellcheck": "^3.0.0",
+    "typescript-eslint": "^8.14.0",
+    "wrangler": "^3.86.1"
   },
   "engines": {
     "node": "^22.11.0"

@@ -1,3 +1,5 @@
 {
-  "extends": "astro/tsconfigs/strictest"
+  "extends": "astro/tsconfigs/strictest",
+  "include": ["src/**/*", "*.config.mjs"],
+  "exclude": ["functions/**/*"]
 }

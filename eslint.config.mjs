@@ -16,4 +16,7 @@ export default tseslint.config(
       },
     },
   },
+  {
+    ignores: ["src/env.d.ts"],
+  },
 );
