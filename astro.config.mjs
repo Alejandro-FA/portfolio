@@ -18,7 +18,7 @@ export default defineConfig({
   redirects: {
     "/": `/${defaultLocale}/`,
     "/about/": `/${defaultLocale}/about/`,
-    "/blog/": `/${defaultLocale}/blog/`,
+    "/work/[...slug]": `/${defaultLocale}/work/[...slug]`,
   },
   integrations: [
     sitemap({

@@ -1,6 +1,16 @@
-import { locales, defaultLocale, type Locale } from "./config";
+import {
+  getCollection,
+  type CollectionKey,
+  type CollectionEntry,
+} from "astro:content";
+import path from "path";
+import type {
+  Locale,
+  LocalizedCollectionEntry,
+  LocalizedCollectionSlug,
+} from "./types";
+import { locales, defaultLocale } from "./config";
 import { ui } from "./ui";
-import { getCollection, type CollectionKey } from "astro:content";
 
 export function getLocaleFromUrl(url: URL): Locale {
   return getLocaleFromPath(url.pathname);
@@ -12,12 +22,17 @@ export function getLocaleFromPath(path: string): Locale {
   return defaultLocale;
 }
 
-export async function getLocalizedCollection(
+export async function getLocalizedCollection<T extends CollectionKey>(
   locale: Locale,
-  collection: CollectionKey,
-) {
+  collection: T,
+): Promise<LocalizedCollectionEntry<T>[]> {
   const entries = await getCollection(collection);
-  return entries.filter((entry) => getLocaleFromPath(entry.slug) === locale);
+  return entries
+    .filter((entry) => getLocaleFromPath(entry.slug) === locale)
+    .map((entry) => ({
+      ...entry,
+      slug: _removeLocaleFromSlug(entry.slug, locale),
+    }));
 }
 
 export function translator(locale: Locale) {
@@ -26,6 +41,26 @@ export function translator(locale: Locale) {
   };
 }
 
+export function getLocalizedCollectionPaths(
+  locale: Locale,
+  collection: CollectionKey,
+) {
+  return async function getStaticPaths() {
+    const entries = await getLocalizedCollection(locale, collection);
+    return entries.map((entry) => ({
+      params: { slug: entry.slug },
+      props: { entry },
+    }));
+  };
+}
+
 function _isLocale(code: string): code is Locale {
   return locales.includes(code as Locale);
+}
+
+function _removeLocaleFromSlug<T extends CollectionKey>(
+  slug: CollectionEntry<T>["slug"],
+  locale: Locale,
+) {
+  return path.relative(locale, slug) as LocalizedCollectionSlug<T>;
 }
