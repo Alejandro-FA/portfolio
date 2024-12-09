@@ -1,18 +1,19 @@
 ---
-import * as i18n from "../i18n";
+import { type CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import * as i18n from "../i18n";
 
 interface Props {
-  project: i18n.LocalizedCollectionEntry<"work">;
+  project: CollectionEntry<"work">;
 }
 
-const { data, slug } = Astro.props.project;
+const { data, id } = Astro.props.project;
 
 /** i18n utilities */
 const locale = i18n.getLocaleFromUrl(Astro.url);
 ---
 
-<a class="card" href={getRelativeLocaleUrl(locale, `/work/${slug}`)}>
+<a class="card" href={getRelativeLocaleUrl(locale, `/work/${id}`)}>
   <span class="title">{data.title}</span>
   <img
     src={data.img}

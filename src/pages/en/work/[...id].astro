@@ -1,10 +1,11 @@
 ---
+import { type CollectionEntry } from "astro:content";
 import * as i18n from "../../../i18n";
 
 import WorkPage from "../../../components/WorkPage.astro";
 
 interface Props {
-  entry: i18n.LocalizedCollectionEntry<"work">;
+  entry: CollectionEntry<"work">;
 }
 
 // This is a dynamic route that generates a page for every Markdown file in src/content/
