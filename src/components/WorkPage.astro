@@ -58,7 +58,6 @@ const { Content } = await render(entry);
 <style>
   header {
     padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--gray-800);
   }
 
   .back-link {
@@ -98,14 +97,15 @@ const { Content } = await render(entry);
   .content :global(h3),
   .content :global(h4),
   .content :global(h5) {
+    color: var(--md-sys-color-primary);
     margin: 1.5rem 0;
   }
 
   .content :global(img) {
     border-radius: 1.5rem;
     box-shadow: var(--shadow-sm);
-    background: var(--gradient-subtle);
-    border: 1px solid var(--gray-800);
+    background: var(--md-sys-color-surface-container-low);
+    border: 1px solid var(--outline-color);
   }
 
   .content :global(blockquote) {
@@ -114,8 +114,12 @@ const { Content } = await render(entry);
     font-weight: 600;
     line-height: 1.1;
     padding-inline-start: 1.5rem;
-    border-inline-start: 0.25rem solid var(--accent-dark);
-    color: var(--gray-0);
+    border-inline-start: 0.25rem solid var(--md-sys-color-tertiary);
+    color: color-mix(
+      in srgb,
+      var(--md-sys-color-tertiary) 40%,
+      var(--md-sys-color-on-surface)
+    );
   }
 
   .back-link,

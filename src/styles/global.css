@@ -1,5 +1,19 @@
 /* Global variables */
 :root {
+  /* Colors */
+  --link-color: var(--md-sys-color-tertiary);
+  --outline-color: var(
+    --md-sys-color-surface-container-low
+  ); /* --md-sys-color-outline has too much contrast */
+
+  /* Gradients */
+  --gradient-tertiary-primary: linear-gradient(
+    150deg,
+    var(--md-sys-color-tertiary),
+    var(--md-sys-color-secondary),
+    var(--md-sys-color-primary)
+  );
+
   /* Text Sizes */
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -28,8 +42,8 @@ body {
 }
 
 body {
-  background-color: var(--gray-999);
-  color: var(--gray-200);
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface-variant);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
@@ -59,7 +73,7 @@ h5 {
   line-height: 1.1;
   font-family: var(--font-brand);
   font-weight: 600;
-  color: var(--gray-100);
+  color: var(--md-sys-color-on-surface);
 }
 
 h1 {

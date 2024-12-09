@@ -41,7 +41,7 @@ const iconLinks: {
     <a href={getRelativeLocaleUrl(locale, "/")} class="site-title">
       <Icon
         icon="terminal-window"
-        color="var(--accent-regular)"
+        color="var(--md-sys-color-primary)"
         size="1.6em"
         gradient
       />
@@ -196,7 +196,7 @@ const iconLinks: {
     gap: 0.5rem;
     align-items: center;
     line-height: 1.1;
-    color: var(--gray-0);
+    color: var(--md-sys-color-on-surface);
     text-decoration: none;
   }
 
@@ -207,15 +207,14 @@ const iconLinks: {
     border-radius: 999rem;
     padding: 0.5rem;
     font-size: 1.5rem;
-    color: var(--gray-300);
-    background: radial-gradient(var(--gray-900), var(--gray-800) 150%);
+    color: var(--md-sys-color-on-surface-container-low);
+    background: var(--md-sys-color-surface-container-low);
     box-shadow: var(--shadow-md);
   }
 
   .menu-button[aria-expanded="true"] {
-    color: var(--gray-0);
-    background: linear-gradient(180deg, var(--gray-600), transparent),
-      radial-gradient(var(--gray-900), var(--gray-800) 150%);
+    color: var(--md-sys-color-on-surface-container-high);
+    background: var(--md-sys-color-surface-container-high);
   }
 
   .menu-button[hidden] {
@@ -226,7 +225,7 @@ const iconLinks: {
     position: absolute;
     inset: -1px;
     content: "";
-    background: var(--gradient-stroke);
+    background: var(--md-sys-color-surface-container-low);
     border-radius: 999rem;
     z-index: -1;
   }
@@ -246,18 +245,18 @@ const iconLinks: {
     line-height: 1.2;
     list-style: none;
     padding: 2rem;
-    background-color: var(--gray-999);
-    border-bottom: 1px solid var(--gray-800);
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border-bottom: 1px solid var(--outline-color);
   }
 
   .link {
     display: inline-block;
-    color: var(--gray-300);
+    color: var(--md-sys-color-on-surface-container);
     text-decoration: none;
   }
 
   .link.active {
-    color: var(--gray-0);
+    color: var(--md-sys-color-on-surface);
   }
 
   .menu-footer {
@@ -268,7 +267,7 @@ const iconLinks: {
     justify-content: space-between;
     gap: 0.75rem;
     padding: 1.5rem 2rem 1.5rem 1.5rem;
-    background-color: var(--gray-999);
+    background-color: var(--md-sys-color-surface-container-lowest);
     border-radius: 0 0 0.75rem 0.75rem;
     box-shadow: var(--shadow-lg);
   }
@@ -284,13 +283,13 @@ const iconLinks: {
     display: flex;
     padding: var(--icon-padding);
     text-decoration: none;
-    color: var(--accent-dark);
+    color: var(--md-sys-color-on-primary-container);
     transition: color var(--theme-transition);
   }
 
   .social:hover,
   .social:focus {
-    color: var(--accent-text-over);
+    color: var(--md-sys-color-primary-fixed);
   }
 
   .theme-toggle {
@@ -327,7 +326,10 @@ const iconLinks: {
       border-radius: 999rem;
       border: 0;
       padding: 0.5rem 0.5625rem;
-      background: radial-gradient(var(--gray-900), var(--gray-800) 150%);
+      background: radial-gradient(
+        var(--md-sys-color-surface-container),
+        var(--md-sys-color-surface-container-high) 150%
+      );
       box-shadow: var(--shadow-md);
     }
 
@@ -335,7 +337,7 @@ const iconLinks: {
       position: absolute;
       inset: -1px;
       content: "";
-      background: var(--gradient-stroke);
+      background: var(--md-sys-color-surface-container-low);
       border-radius: 999rem;
       z-index: -1;
     }
@@ -350,13 +352,13 @@ const iconLinks: {
 
     .link:hover,
     .link:focus {
-      color: var(--gray-100);
-      background-color: var(--accent-subtle-overlay);
+      color: var(--md-sys-color-on-inverse-primary);
+      background-color: var(--md-sys-color-inverse-primary);
     }
 
     .link.active {
-      color: var(--accent-text-over);
-      background-color: var(--accent-regular);
+      color: var(--md-sys-color-on-primary);
+      background-color: var(--md-sys-color-primary);
     }
 
     .menu-footer {

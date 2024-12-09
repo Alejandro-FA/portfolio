@@ -16,8 +16,8 @@ import Icon from "./Icon.astro";
     border: 0;
     border-radius: 999rem;
     padding: 0;
-    background-color: var(--gray-999);
-    box-shadow: inset 0 0 0 1px var(--accent-overlay);
+    background-color: var(--md-sys-color-surface-container-lowest);
+    box-shadow: inset 0 0 0 1px var(--md-sys-color-inverse-primary);
     cursor: pointer;
   }
 
@@ -29,7 +29,7 @@ import Icon from "./Icon.astro";
     width: 2rem;
     height: 2rem;
     font-size: 1rem;
-    color: var(--accent-overlay);
+    color: var(--md-sys-color-inverse-primary);
   }
 
   .icon.light::before {
@@ -37,7 +37,7 @@ import Icon from "./Icon.astro";
     z-index: -1;
     position: absolute;
     inset: 0;
-    background-color: var(--accent-regular);
+    background-color: var(--md-sys-color-primary);
     border-radius: 999rem;
   }
 
@@ -48,7 +48,7 @@ import Icon from "./Icon.astro";
   :global(.theme-dark) .icon.dark,
   :global(html:not(.theme-dark)) .icon.light,
   button[aria-pressed="false"] .icon.light {
-    color: var(--accent-text-over);
+    color: var(--md-sys-color-on-primary);
   }
 
   @media (prefers-reduced-motion: no-preference) {

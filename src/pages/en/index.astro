@@ -182,7 +182,7 @@ const projects = (await i18n.getLocalizedCollection(locale, "work"))
     background:
       url("/assets/backgrounds/noise.png") top center/220px repeat,
       var(--hero-bg) center center / var(--bg-gradient-size) no-repeat,
-      var(--gray-999);
+      var(--md-sys-color-surface);
     background-blend-mode: overlay, normal, normal, normal;
     mix-blend-mode: var(--bg-blend-mode);
     z-index: -1;
@@ -197,7 +197,7 @@ const projects = (await i18n.getLocalizedCollection(locale, "work"))
     text-align: center;
     max-width: 50ch;
     font-size: var(--text-md);
-    color: var(--gray-300);
+    color: var(--md-sys-color-on-surface-variant);
   }
 
   .section-header h3 {
@@ -246,10 +246,9 @@ const projects = (await i18n.getLocalizedCollection(locale, "work"))
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: 1px solid var(--gray-800);
     border-radius: 1.5rem;
-    color: var(--gray-300);
-    background: var(--gradient-subtle);
+    color: var(--md-sys-color-on-surface-container);
+    background: var(--md-sys-color-surface-container-low);
     box-shadow: var(--shadow-sm);
   }
 

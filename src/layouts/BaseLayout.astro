@@ -60,8 +60,8 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
       :root.theme-dark {
         --bg-image-main: url("/assets/backgrounds/bg-main-dark-800w.jpg");
         --bg-image-main-curves: url("/assets/backgrounds/bg-main-dark.svg");
-        --bg-svg-blend-mode: darken;
         --bg-blend-mode: lighten;
+        --bg-svg-blend-mode: darken;
       }
 
       /* These backgrounds are displayed below the fold, so we lazy load them
@@ -114,7 +114,7 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
             center/var(--bg-gradient-size) no-repeat,
           /*header2*/ var(--bg-image-main) top center/var(--bg-gradient-size)
             no-repeat,
-          /*base*/ var(--gray-999);
+          /*base*/ var(--md-sys-color-surface);
         background-blend-mode: /*noise*/
           overlay,
           /*footer*/ var(--bg-blend-mode),
