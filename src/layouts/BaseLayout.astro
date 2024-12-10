@@ -42,22 +42,20 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
       :root {
         --_placeholder-bg: linear-gradient(transparent, transparent);
         --bg-image-footer: var(--_placeholder-bg);
-        --bg-image-aspect-ratio: 2.25;
-        --bg-scale: 1.68;
-        --bg-aspect-ratio: calc(var(--bg-image-aspect-ratio) / var(--bg-scale));
-        --bg-gradient-size: calc(var(--bg-scale) * 100%);
       }
 
       :root.theme-light {
-        --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-light-thin.svg");
-        --bg-image-main-curves: url("/assets/backgrounds/bg-main-light.svg");
+        --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-light.svg");
+        --bg-image-header-curves: url("/assets/backgrounds/bg-main-light.svg");
+        --bg-image-main: url("/assets/backgrounds/bg-maze-light.svg");
         --bg-blend-mode: darken;
         --bg-svg-blend-mode: overlay;
       }
 
       :root.theme-dark {
-        --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-dark-thin.svg");
-        --bg-image-main-curves: url("/assets/backgrounds/bg-main-dark.svg");
+        --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-dark.svg");
+        --bg-image-header-curves: url("/assets/backgrounds/bg-main-dark.svg");
+        --bg-image-main: url("/assets/backgrounds/bg-maze-dark.svg");
         --bg-blend-mode: lighten;
         --bg-svg-blend-mode: darken;
       }
@@ -67,21 +65,26 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
       :root.loaded.theme-light {
         --bg-image-footer: url("/assets/backgrounds/bg-footer-light.svg");
       }
+
       :root.loaded.theme-dark {
         --bg-image-footer: url("/assets/backgrounds/bg-footer-dark.svg");
       }
 
-      @media (min-width: 50em) {
-        :root {
-          --bg-scale: 1;
-        }
-
+      @media (min-width: 160em) {
         :root.theme-light {
-          --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-light.svg");
+          --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-light-thin.svg");
         }
 
         :root.theme-dark {
-          --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-dark.svg");
+          --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-dark-thin.svg");
+        }
+
+        :root.loaded.theme-light {
+          --bg-image-footer: url("/assets/backgrounds/bg-footer-light-thin.svg");
+        }
+
+        :root.loaded.theme-dark {
+          --bg-image-footer: url("/assets/backgrounds/bg-footer-dark-thin.svg");
         }
       }
 
@@ -91,18 +94,17 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
         background:
 					/*noise*/
           url("/assets/backgrounds/noise.png") top center/220px repeat,
-          /*footer*/ var(--bg-image-footer) bottom
-            center/var(--bg-gradient-size) no-repeat,
-          /*header1*/ var(--bg-image-main-curves) top
-            center/var(--bg-gradient-size) no-repeat,
-          /*header2*/ var(--bg-image-main) top center/var(--bg-gradient-size)
-            no-repeat,
+          /*footer*/ var(--bg-image-footer) bottom center/100% no-repeat,
+          /*header1*/ var(--bg-image-header-curves) top center/100% no-repeat,
+          /*header2*/ var(--bg-image-header) top center/100% no-repeat,
+          /*pattern*/ var(--bg-image-main) center center/110px repeat,
           /*base*/ var(--md-sys-color-surface);
         background-blend-mode: /*noise*/
           overlay,
           /*footer*/ var(--bg-blend-mode),
           /*header1*/ var(--bg-svg-blend-mode),
           /*header2*/ normal,
+          /*pattern*/ normal,
           /*base*/ normal;
       }
       @media (forced-colors: active) {
@@ -110,7 +112,6 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
         .backgrounds {
           background: none;
           background-blend-mode: none;
-          --bg-gradient-size: none;
         }
       }
     </style>
