@@ -41,8 +41,6 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
     <style>
       :root {
         --_placeholder-bg: linear-gradient(transparent, transparent);
-        --bg-image-subtle-1: var(--_placeholder-bg);
-        --bg-image-subtle-2: var(--_placeholder-bg);
         --bg-image-footer: var(--_placeholder-bg);
         --bg-image-aspect-ratio: 2.25;
         --bg-scale: 1.68;
@@ -51,30 +49,26 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
       }
 
       :root.theme-light {
-        --bg-image-main: url("/assets/backgrounds/bg-main-light-800w.jpg");
+        --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-light-thin.svg");
         --bg-image-main-curves: url("/assets/backgrounds/bg-main-light.svg");
         --bg-blend-mode: darken;
         --bg-svg-blend-mode: overlay;
       }
 
       :root.theme-dark {
-        --bg-image-main: url("/assets/backgrounds/bg-main-dark-800w.jpg");
+        --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-dark-thin.svg");
         --bg-image-main-curves: url("/assets/backgrounds/bg-main-dark.svg");
         --bg-blend-mode: lighten;
         --bg-svg-blend-mode: darken;
       }
 
       /* These backgrounds are displayed below the fold, so we lazy load them
-			   once the `.loaded` class has been set.  */
+	  once the `.loaded` class has been set.  */
       :root.loaded.theme-light {
-        --bg-image-subtle-1: url("/assets/backgrounds/bg-subtle-1-light-800w.jpg");
-        --bg-image-subtle-2: url("/assets/backgrounds/bg-subtle-2-light-800w.jpg");
-        --bg-image-footer: url("/assets/backgrounds/bg-footer-light-800w.jpg");
+        --bg-image-footer: url("/assets/backgrounds/bg-footer-light.svg");
       }
       :root.loaded.theme-dark {
-        --bg-image-subtle-1: url("/assets/backgrounds/bg-subtle-1-dark-800w.jpg");
-        --bg-image-subtle-2: url("/assets/backgrounds/bg-subtle-2-dark-800w.jpg");
-        --bg-image-footer: url("/assets/backgrounds/bg-footer-dark-800w.jpg");
+        --bg-image-footer: url("/assets/backgrounds/bg-footer-dark.svg");
       }
 
       @media (min-width: 50em) {
@@ -83,22 +77,11 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
         }
 
         :root.theme-light {
-          --bg-image-main: url("/assets/backgrounds/bg-main-light-1440w.jpg");
+          --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-light.svg");
         }
 
         :root.theme-dark {
-          --bg-image-main: url("/assets/backgrounds/bg-main-dark-1440w.jpg");
-        }
-
-        :root.loaded.theme-light {
-          --bg-image-subtle-1: url("/assets/backgrounds/bg-subtle-1-light-1440w.jpg");
-          --bg-image-subtle-2: url("/assets/backgrounds/bg-subtle-2-light-1440w.jpg");
-          --bg-image-footer: url("/assets/backgrounds/bg-footer-light-1440w.jpg");
-        }
-        :root.loaded.theme-dark {
-          --bg-image-subtle-1: url("/assets/backgrounds/bg-subtle-1-dark-1440w.jpg");
-          --bg-image-subtle-2: url("/assets/backgrounds/bg-subtle-2-dark-1440w.jpg");
-          --bg-image-footer: url("/assets/backgrounds/bg-footer-dark-1440w.jpg");
+          --bg-image-main: url("/assets/backgrounds/bg-waves-gradient-dark.svg");
         }
       }
 

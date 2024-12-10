@@ -16,12 +16,12 @@ const { href } = Astro.props;
     text-align: center;
     padding: 0.56em 2em;
     gap: 0.8em;
-    color: var(--md-sys-color-on-secondary);
+    color: var(--md-sys-color-on-tertiary-container);
     text-decoration: none;
     line-height: 1.1;
     border-radius: 999rem;
     overflow: hidden;
-    background: var(--gradient-tertiary-primary);
+    background: var(--md-sys-color-tertiary-container);
     box-shadow: var(--shadow-md);
     white-space: nowrap;
   }
@@ -46,7 +46,7 @@ const { href } = Astro.props;
   a:hover::after {
     background-color: color-mix(
       in srgb,
-      var(--md-sys-color-surface-container-lowest) 70%,
+      var(--md-sys-color-inverse-surface) 25%,
       transparent
     );
   }

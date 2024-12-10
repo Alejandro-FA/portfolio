@@ -6,14 +6,6 @@
     --md-sys-color-surface-container-low
   ); /* --md-sys-color-outline has too much contrast */
 
-  /* Gradients */
-  --gradient-tertiary-primary: linear-gradient(
-    150deg,
-    var(--md-sys-color-tertiary),
-    var(--md-sys-color-secondary),
-    var(--md-sys-color-primary)
-  );
-
   /* Text Sizes */
   --text-sm: 0.875rem;
   --text-base: 1rem;

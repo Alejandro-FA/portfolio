@@ -62,6 +62,22 @@ const { Content } = await render(entry);
 
   .back-link {
     display: none;
+    padding: 0.3rem 0.75rem;
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-surface-container-low) 30%,
+      transparent
+    );
+    border-radius: 999rem;
+  }
+
+  .back-link:hover,
+  .back-link:focus {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-surface-container-low) 50%,
+      transparent
+    );
   }
 
   .details {
