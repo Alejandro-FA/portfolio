@@ -1,12 +1,12 @@
 export const ui = {
   en: {
     "nav.home": "Home",
-    "nav.work": "Work",
+    "nav.projects": "Projects",
     "nav.about": "About",
   },
   es: {
     "nav.home": "Inicio",
-    "nav.work": "Trabajo",
+    "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
   },
 } as const;
