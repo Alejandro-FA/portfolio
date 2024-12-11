@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "npm run build && wrangler pages dev",
+    "preview": "SITE=http://localhost:8788 npm run build && wrangler pages dev --port 8788",
     "astro": "astro",
     "upgrade-deps": "npm update --include=dev --save=true",
     "lint:shell": "shellcheck --enable=all .githooks/*",

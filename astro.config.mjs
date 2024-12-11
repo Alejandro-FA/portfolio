@@ -2,11 +2,14 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { locales, defaultLocale } from "./src/i18n/config";
+import * as process from "node:process";
+
+const siteUrl = process.env.SITE ?? "https://alejandrofernandez.dev";
 
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  site: "https://alejandrofernandez.dev",
+  site: siteUrl,
   i18n: {
     defaultLocale: defaultLocale,
     locales: [...locales],
