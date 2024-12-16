@@ -98,4 +98,4 @@ For a personalized typography, you can integrate free fonts from [Google Fonts](
 
 ### Icons
 
-Project icons have been sourced from [Streamline](https://www.streamlinehq.com/), [Font Awesome](https://fontawesome.com/icons), and [Material Icons](https://fonts.google.com/icons).
+Project icons have been sourced from [Phosphor Icons](https://phosphoricons.com/) and [Font Awesome](https://fontawesome.com/icons).

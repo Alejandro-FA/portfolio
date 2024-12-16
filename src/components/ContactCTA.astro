@@ -1,13 +1,15 @@
 ---
 import CallToAction from "./CallToAction.astro";
 import Icon from "./Icon.astro";
+
+const cvFile = "alejandro_fernandez_cv-en.pdf";
 ---
 
 <aside>
   <h2>Interested in working together?</h2>
-  <CallToAction href="mailto:me@example.com">
-    Send Me a Message
-    <Icon icon="paper-plane-tilt" size="1.2em" />
+  <CallToAction href={`/r2/${cvFile}`} download={cvFile}>
+    Download CV
+    <Icon icon="file-arrow-down" size="1.2em" />
   </CallToAction>
 </aside>
 
@@ -20,11 +22,7 @@ import Icon from "./Icon.astro";
     border-top: 1px solid var(--outline-color);
     border-bottom: 1px solid var(--outline-color);
     padding: 5rem 1.5rem;
-    background-color: color-mix(
-      in srgb,
-      var(--md-sys-color-surface-container-lowest) 30%,
-      transparent
-    );
+    background-color: var(--surface-container-color);
     box-shadow: var(--shadow-sm);
   }
 

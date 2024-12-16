@@ -41,12 +41,14 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
           </div>
         </Hero>
 
-        <img
-          alt="Jeanine White smiling in a red plaid shirt and tortoise shell glasses"
-          width="480"
-          height="620"
-          src="/assets/portrait.jpg"
-        />
+        <figure>
+          <img
+            alt="Jeanine White smiling in a red plaid shirt and tortoise shell glasses"
+            width="480"
+            height="620"
+            src="/assets/portrait.webp"
+          />
+        </figure>
       </header>
 
       <Skills />
@@ -57,8 +59,8 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
         <header class="section-header stack gap-2 lg:gap-4">
           <h3>Selected Projects</h3>
           <p>
-            Take a look below at some of my featured work for clients from the
-            past few years.
+            Take a look below at some interesting projects that I worked on
+            during my studies.
           </p>
         </header>
 
@@ -82,7 +84,7 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
         </div>
       </section>
 
-      <section class="section">
+      <!-- <section class="section">
         <header class="section-header stack gap-2 lg:gap-4">
           <h3>Mentions</h3>
           <p>
@@ -108,7 +110,7 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
             }
           </Grid>
         </div>
-      </section>
+      </section> -->
     </main>
 
     <ContactCTA />
@@ -127,12 +129,18 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
     display: none;
   }
 
+  .hero figure {
+    background-color: var(--surface-container-color);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
   .hero img {
     aspect-ratio: 5 / 4;
     object-fit: cover;
     object-position: top;
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-md);
+    display: block;
+    border-radius: inherit;
   }
 
   @media (min-width: 50em) {
@@ -149,10 +157,12 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
       gap: 0.5rem;
     }
 
+    .hero figure {
+      border-radius: 4.5rem;
+    }
+
     .hero img {
       aspect-ratio: 3 / 4;
-      border-radius: 4.5rem;
-      object-fit: cover;
     }
   }
 

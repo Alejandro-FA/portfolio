@@ -5,6 +5,11 @@
   --outline-color: var(
     --md-sys-color-surface-container-low
   ); /* --md-sys-color-outline has too much contrast */
+  --surface-container-color: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-lowest) 40%,
+    transparent
+  );
 
   /* Text Sizes */
   --text-sm: 0.875rem;

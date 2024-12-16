@@ -1,12 +1,13 @@
 ---
 interface Props {
   href: string;
+  download?: string;
 }
 
-const { href } = Astro.props;
+const { href, download } = Astro.props;
 ---
 
-<a href={href}><slot /></a>
+<a href={href} download={download}><slot /></a>
 
 <style>
   a {
