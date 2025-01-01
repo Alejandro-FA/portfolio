@@ -27,7 +27,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "shellcheck": "^3.0.0",
     "typescript-eslint": "^8.18.0",
-    "wrangler": "^3.96.0"
+    "wrangler": "^3.99.0"
   },
   "engines": {
     "node": "^22.11.0"
