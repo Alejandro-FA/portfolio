@@ -1,6 +1,6 @@
-# Alejandro-FA.github.io
+# Portfolio website
 
-Source code for my personal portfolio, hosted at [https://alejandrofernandez.dev/](https://alejandrofernandez.dev/).
+Source code for my personal portfolio website, hosted at [https://alejandrofernandez.dev/](https://alejandrofernandez.dev/).
 
 ## Installation
 
@@ -12,15 +12,18 @@ This project includes the following primary folders and files:
 
 ```plaintext
 /
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
+├── public
+│   ├── assets
+│   ├── favicon.svg
+│   └── _headers
+├── src
+│   ├── components
+│   ├── content
+│   ├── content.config.ts
+│   ├── i18n
+│   ├── layouts
+│   ├── pages
+│   └── styles
 └── package.json
 ```
 
@@ -32,7 +35,7 @@ This project includes the following primary folders and files:
 
 ## 🧞 Usage
 
-Common development tasks are unified into npm scripts. GitHub Actions use these scripts for deployment, so be mindful of changes. All commands are executed from the project root.
+Common development tasks are unified into npm scripts. All commands are executed from the project root.
 
 | Command                 | Action                                                 |
 | :---------------------- | :----------------------------------------------------- |
@@ -46,9 +49,23 @@ Common development tasks are unified into npm scripts. GitHub Actions use these 
 | `npm run lint`          | Runs static code analysis                              |
 | `npm run deploy`        | Deploys the site to Cloudflare Pages                   |
 
-> **Note**: The `shellcheck` binary is downloaded automatically on the first `npm run lint`.
+> **Note**: The `shellcheck` binary is downloaded automatically on the first execution of `npm run lint`.
 
-## Testing Production Build
+## Deployment to Cloudflare Pages
+
+This project is designed to be deployed to [Cloudflare Pages](https://pages.cloudflare.com/). You can use its Git integration to make a new deployment for each commit to the `main` branch. Additionally, you can manually deploy the current git branch with the following command:
+
+```bash
+npm run deploy
+```
+
+Cloudflare Pages has a **Production** environment and allows the creation of multiple **Preview** environments. By default, the `main` branch is deployed to the Production environment and any other branch is deployed to a Preview environment of the same name. If you want to deploy to a different environment, specify it with the `DEPLOY_BRANCH` environment variable:
+
+```bash
+DEPLOY_BRANCH=main npm run deploy
+```
+
+## Testing a production build
 
 To test the website in a production-like environment, run:
 
@@ -56,31 +73,17 @@ To test the website in a production-like environment, run:
 npm run preview
 ```
 
-To emulate Cloudflare R2 storage, you can add files to a local database as follows:
+The previous command deploys the project to a local server using [Wrangler](https://developers.cloudflare.com/workers/wrangler/), a CLI tool by Cloudflare. [Wrangler](https://developers.cloudflare.com/workers/wrangler/) also allows to emulate [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/) buckets, and you can add objects to the emulated local storage as follows:
 
 ```bash
-npx wrangler r2 object put portfolio/alejandro_fernandez_cv-en.pdf --local --file ~/Sync/CV/alejandro_fernandez_cv-en.pdf
+npx wrangler r2 object put <bucket-name>/<object-name> --local --file /path/to/file
 ```
 
 Auditing the production build with [Lighthouse](https://developers.google.com/web/tools/lighthouse) is also recommended.
 
-## Manual deployment
-
-Commits to the main branch trigger automatic deployment. You can also manually deploy by running:
-
-```bash
-npm run deploy
-```
-
-By default, the project is deployed to the current `git` branch. If you want to deploy to another branch, specify it with the `DEPLOY_BRANCH` environment variable:
-
-```bash
-DEPLOY_BRANCH=main npm run deploy
-```
-
 ## Creating and customizing a theme
 
-This project uses the Material Design system for UI consistency. Follow the instructions in the [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/) to build your own Material theme. For more information, check the [Material Design website](https://m3.material.io/blog/material-theme-builder).
+This project uses the Material Design system for defining a color theme. Follow the instructions in the [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/) to build your own Material theme. For more information, check the [Material Design website](https://m3.material.io/blog/material-theme-builder).
 
 ## Using personalized fonts
 
