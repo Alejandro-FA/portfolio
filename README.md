@@ -59,7 +59,7 @@ npm run preview
 To emulate Cloudflare R2 storage, you can add files to a local database as follows:
 
 ```bash
-npx wrangler r2 object put cv-documents/alejandro_fernandez_cv-en.pdf --local --file ~/Sync/CV/alejandro_fernandez_cv-en.pdf
+npx wrangler r2 object put portfolio/alejandro_fernandez_cv-en.pdf --local --file ~/Sync/CV/alejandro_fernandez_cv-en.pdf
 ```
 
 Auditing the production build with [Lighthouse](https://developers.google.com/web/tools/lighthouse) is also recommended.
