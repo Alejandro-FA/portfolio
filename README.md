@@ -43,7 +43,7 @@ Common development tasks are unified into npm scripts. All commands are executed
 | `npm install <package>` | Adds and installs a new dependency                     |
 | `npm run upgrade-deps`  | Upgrades dependencies to the latest non-major versions |
 | `npm run dev`           | Starts a local dev server at localhost:4321            |
-| `npm run build`         | Builds the production site to ./dist/                  |
+| `npm run build`         | Builds the production site to `./dist/`                |
 | `npm run preview`       | Previews the production build locally                  |
 | `npm run astro ...`     | Executes Astro CLI commands (e.g., `astro add`)        |
 | `npm run lint`          | Runs static code analysis                              |
@@ -53,16 +53,16 @@ Common development tasks are unified into npm scripts. All commands are executed
 
 ## Deployment to Cloudflare Pages
 
-This project is designed to be deployed to [Cloudflare Pages](https://pages.cloudflare.com/). You can use its Git integration to make a new deployment for each commit to the `main` branch. Additionally, you can manually deploy the current git branch with the following command:
+This project is designed to be deployed to [Cloudflare Pages](https://pages.cloudflare.com/). You can use its Git integration to make a new deployment for each commit to the `main` branch. Additionally, you can make a deployment with the following command:
 
 ```bash
 npm run deploy
 ```
 
-Cloudflare Pages has a **Production** environment and allows the creation of multiple **Preview** environments. By default, the `main` branch is deployed to the Production environment and any other branch is deployed to a Preview environment of the same name. If you want to deploy to a different environment, specify it with the `DEPLOY_BRANCH` environment variable:
+Cloudflare Pages creates a new deployment branch for each of the git branches that you deploy from. The `main` branch corresponds to the **Production** environment, and any other branch is a **Preview** environment. If you want to deploy the `main` branch to a Preview environment (or viceversa), specify the target branch with the `DEPLOY_BRANCH` environment variable (by default it deploys to the current branch).
 
 ```bash
-DEPLOY_BRANCH=main npm run deploy
+DEPLOY_BRANCH=test npm run deploy
 ```
 
 ## Testing a production build
