@@ -10,6 +10,14 @@ const siteUrl = process.env.SITE ?? "https://alejandrofernandez.dev";
 export default defineConfig({
   output: "static",
   site: siteUrl,
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: "light-plus",
+        dark: "dark-plus",
+      },
+    },
+  },
   i18n: {
     defaultLocale: defaultLocale,
     locales: [...locales],

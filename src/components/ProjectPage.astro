@@ -26,9 +26,18 @@ const { Content } = await render(entry);
     <div class="stack gap-15">
       <header>
         <div class="wrapper stack gap-2">
-          <a class="back-link" href={workUrl}
-            ><Icon icon="arrow-left" /> Projects</a
-          >
+          <div class="wrapper row">
+            <a class="back-link row gap-1" href={workUrl}
+              ><Icon icon="arrow-left" /> Projects</a
+            >
+            <a
+              class="github-link row gap-2"
+              href={entry.data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              ><Icon viewBox="0 0 512 512" icon="github-logo" /> View on GitHub</a
+            >
+          </div>
           <Hero title={entry.data.title} align="start">
             <div class="details">
               <div class="tags">
@@ -61,15 +70,19 @@ const { Content } = await render(entry);
     padding-bottom: 2.5rem;
   }
 
-  .back-link {
-    display: none;
+  .back-link,
+  .github-link {
     padding: 0.3rem 0.75rem;
+    font-weight: bold;
+    border-radius: 999rem;
+  }
+
+  .back-link {
     background-color: color-mix(
       in srgb,
       var(--md-sys-color-surface-container-low) 30%,
       transparent
     );
-    border-radius: 999rem;
   }
 
   .back-link:hover,
@@ -78,6 +91,22 @@ const { Content } = await render(entry);
       in srgb,
       var(--md-sys-color-surface-container-low) 50%,
       transparent
+    );
+  }
+
+  .github-link {
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .github-link:hover,
+  .github-link:focus {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-inverse-surface) 40%,
+      var(--md-sys-color-secondary)
     );
   }
 
@@ -103,10 +132,15 @@ const { Content } = await render(entry);
   .content {
     max-width: 65ch;
     margin-inline: auto;
+    font-size: var(--text-md);
   }
 
   .content > :global(* + *) {
     margin-top: 1rem;
+  }
+
+  .content :global(a) {
+    font-weight: bold;
   }
 
   .content :global(h1),
@@ -139,7 +173,18 @@ const { Content } = await render(entry);
     );
   }
 
+  .content :global(pre) {
+    border: 1px solid var(--outline-color);
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .content :global(code) {
+    font-size: var(--text-sm);
+  }
+
   .back-link,
+  .github-link,
   .content :global(a) {
     text-decoration: 1px solid underline transparent;
     text-underline-offset: 0.25em;
@@ -148,15 +193,22 @@ const { Content } = await render(entry);
 
   .back-link:hover,
   .back-link:focus,
+  .github-link:hover,
+  .github-link:focus,
   .content :global(a:hover),
   .content :global(a:focus) {
     text-decoration-color: currentColor;
   }
 
-  @media (min-width: 50em) {
+  @media (max-width: 50em) {
     .back-link {
-      display: block;
-      align-self: flex-start;
+      display: none;
+    }
+  }
+
+  @media (min-width: 50em) {
+    .github-link {
+      margin-right: 0;
     }
 
     .details {
@@ -166,6 +218,11 @@ const { Content } = await render(entry);
 
     .content :global(blockquote) {
       font-size: var(--text-2xl);
+    }
+
+    .content :global(pre) {
+      border-radius: 1.5rem;
+      padding: 1rem;
     }
   }
 </style>

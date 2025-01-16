@@ -93,6 +93,16 @@ h5 {
   font-size: var(--text-xl);
 }
 
+html.theme-dark .astro-code,
+html.theme-dark .astro-code span {
+  color: var(--shiki-dark) !important;
+}
+
+.astro-code,
+.astro-code span {
+  background-color: var(--surface-container-color) !important;
+}
+
 /* Utilities */
 
 .sr-only {
@@ -119,6 +129,15 @@ h5 {
   flex-direction: column;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
 .gap-2 {
   gap: 0.5rem;
 }
