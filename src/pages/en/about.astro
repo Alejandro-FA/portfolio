@@ -18,8 +18,8 @@ import Hero from "../../components/Hero.astro";
         <img
           width="1553"
           height="873"
-          src="/assets/at-work.jpg"
-          alt="Jeanine White at work with a colleague"
+          src="/assets/hiking_bags.webp"
+          alt="Hiking bags in the mountains, from a trip to the Pyrenees"
         />
       </Hero>
 
@@ -27,41 +27,121 @@ import Hero from "../../components/Hero.astro";
         <h2 class="section-title">Background</h2>
         <div class="content">
           <p>
-            Lorem ipsum dolor sit amet, <a href="https://astro.build/">Astro</a>
-            makes people happy. Sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Proin nibh nisl condimentum id venenatis a condimentum
-            vitae. Dapibus ultrices in iaculis nunc. Arcu odio ut sem nulla pharetra
-            diam sit amet. Diam quis enim lobortis scelerisque fermentum dui faucibus
-            in ornare.
+            Hi, my name is Alejandro Fernández Alburquerque, and I have recently
+            graduated from Universitat Pompeu Fabra (Barcelona, Spain) with a
+            degree in Computer Engineering.
           </p>
           <p>
-            Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget
-            gravida cum sociis natoque penatibus. Cras fermentum odio eu feugiat
-            pretium nibh. Proin nibh nisl condimentum id venenatis. Porta nibh
-            venenatis cras sed felis eget velit. Id diam vel quam elementum
-            pulvinar etiam non.
+            From all the Computer Engineering subjects, I especially enjoyed
+            learning about Programming, Algorithm Design, and Artificial
+            Intelligence. The most rewarding highlight of my studies has been
+            working on multiple team projects for different subjects, like
+            developing an automatic face recognition deep learning model or
+            building a reinforcement learning agent for a competitive Pac-Man
+            game. These projects have been an excellent opportunity to acquire
+            teamwork skills and learn how to use modern software collaboration
+            tools. Most of my school projects, including my bachelor thesis, are
+            on my <a href="https://github.com/Alejandro-FA">GitHub page</a> if you
+            are interested in them.
           </p>
           <p>
-            Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut
-            sem viverra aliquet eget sit amet. Lacus luctus accumsan tortor
-            posuere ac ut consequat semper viverra. Viverra accumsan in nisl
-            nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl
-            pretium fusce.
+            Regarding personal hobbies, I enjoy playing various team sports,
+            such as football and padel, and hiking is one of my favorite summer
+            activities. Additionally, as a good stereotypical computer engineer,
+            I also love playing video games with friends. Furthermore, my
+            interest in technology extends beyond my studies. I like to keep
+            updated with hardware developments and enjoy tinkering with my
+            custom-built desktop PC.
           </p>
         </div>
       </section>
       <section>
         <h2 class="section-title">Education</h2>
         <div class="content">
-          <p>Corporis voluptates tenetur laudantium.</p>
+          <ul class="education-list">
+            <li class="education-entry">
+              <div class="education-head">
+                <span class="education-title"
+                  >Bachelor's degree, Computer Engineering</span
+                >
+                <span class="education-details"
+                  >2020 - 2024, Universitat Pompeu Fabra</span
+                >
+              </div>
+              <p class="education-description">
+                My four-year academic journey in Physics Engineering led me to
+                discover my passion for computer engineering and programming. I
+                graduated in Computer Engineering in second place, <strong
+                  >completing 20 subjects with Honours ("Matrícula de Honor" in
+                  Spanish)</strong
+                >, including Artificial Intelligence, Cryptography and Security,
+                Object-Oriented Programming, Machine Learning, and Algorithm
+                Design.
+              </p>
+              <p class="education-description">
+                One of the most rewarding aspects of my Bachelor's degree was
+                the opportunity to collaborate with brilliant colleagues. I
+                learned how to work effectively in a team, developing my skills
+                in collaborative planning and organization, technical
+                communication, and software development with version control
+                systems like Git.
+              </p>
+            </li>
+            <li class="education-entry">
+              <div class="education-head">
+                <span class="education-title"
+                  >Bachelor's degree, Physics Engineering (unfinished)</span
+                >
+                <span class="education-details"
+                  >2016 - 2020, Universitat Politècnica de Catalunya</span
+                >
+              </div>
+              <p class="education-description">
+                After completing my Baccalaureate studies with an honorary
+                distinction, I decided to continue my education with a
+                challenging scientific Bachelor's degree, so I chose Engineering
+                Physics. However, amid the COVID-19 pandemic, I discovered my
+                passion for computers and programming, prompting me to switch
+                from Engineering Physics to Computer Engineering. Even though I
+                did not finish my studies, I am deeply appreciative for the
+                learning experience and the brilliant people I met, and for the
+                strong foundation in mathematics and physics that I acquired.
+              </p>
+            </li>
+          </ul>
         </div>
       </section>
       <section>
+        <h2 class="section-title">Experience</h2>
+        <div class="content">
+          <ul class="experience-list">
+            <li class="experience-entry">
+              <div class="experience-head">
+                <span class="experience-title"
+                  >Intern at the Artificial Intelligence and Machine Learning
+                  Research Group</span
+                >
+                <span class="experience-details"
+                  >2024, Universitat Pompeu Fabra</span
+                >
+              </div>
+              <p class="experience-description">
+                While interning at the University's AI and ML research group, I
+                developed my Bachelor's thesis, <a href="/en/projects/"
+                  >"Parallel Strategies for Best-First Generalized Planning."</a
+                > I also had the opportunity to learn from world-renowned researchers
+                in automated planning.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- <section>
         <h2 class="section-title">Skills</h2>
         <div class="content">
           <p>officia unde omnis</p>
         </div>
-      </section>
+      </section> -->
     </main>
 
     <ContactCTA />
@@ -72,7 +152,7 @@ import Hero from "../../components/Hero.astro";
   .about {
     display: flex;
     flex-direction: column;
-    gap: 3.5rem;
+    gap: 4rem;
   }
 
   img {
@@ -86,6 +166,7 @@ import Hero from "../../components/Hero.astro";
     flex-direction: column;
     gap: 0.5rem;
     color: var(--md-sys-color-on-surface-variant);
+    font-size: var(--text-md);
   }
 
   .section-title {
@@ -98,6 +179,10 @@ import Hero from "../../components/Hero.astro";
     grid-column: 2 / 4;
   }
 
+  .content > p:not(:last-child) {
+    margin-block-end: 0.75rem;
+  }
+
   .content :global(a) {
     text-decoration: 1px solid underline transparent;
     text-underline-offset: 0.25em;
@@ -107,6 +192,43 @@ import Hero from "../../components/Hero.astro";
   .content :global(a:hover),
   .content :global(a:focus) {
     text-decoration-color: currentColor;
+  }
+
+  .education-list,
+  .experience-list {
+    list-style-type: none; /* Remove list item dots */
+    padding: 0;
+  }
+
+  .education-entry:not(:last-child),
+  .experience-entry:not(:last-child) {
+    margin-bottom: 2rem; /* Spacing between each entry */
+  }
+
+  .education-head,
+  .experience-head {
+    margin-bottom: 0.5rem; /* Spacing between the head and description */
+  }
+
+  .education-title,
+  .experience-title {
+    display: block;
+    font-weight: bold;
+    color: var(--md-sys-color-primary);
+  }
+
+  .education-details,
+  .experience-details {
+    display: block;
+    color: var(--md-sys-color-secondary);
+    font-size: var(--text-sm);
+    /* font-weight: bold; */
+  }
+
+  .education-description,
+  .experience-description {
+    margin-top: 0.5rem; /* Spacing between the head and description */
+    font-size: var(--text-sm);
   }
 
   @media (min-width: 50em) {
@@ -122,6 +244,13 @@ import Hero from "../../components/Hero.astro";
     section {
       display: contents;
       font-size: var(--text-lg);
+    }
+
+    .education-description,
+    .education-details,
+    .experience-description,
+    .experience-details {
+      font-size: var(--text-md);
     }
   }
 </style>
