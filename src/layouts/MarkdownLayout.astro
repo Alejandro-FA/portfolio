@@ -32,6 +32,7 @@ import "@fontsource-variable/jetbrains-mono";
     margin-inline: auto;
     font-size: var(--text-md);
     --md-margin: 1rem;
+    counter-reset: heading;
 
     h1,
     h2,
@@ -48,12 +49,14 @@ import "@fontsource-variable/jetbrains-mono";
 
     h2 {
       font-size: var(--text-2xl);
-      margin-top: 3.5rem;
+      margin-top: 3rem;
+      counter-reset: subheading;
     }
 
     h3 {
       font-size: var(--text-xl);
       margin-top: 2rem;
+      counter-reset: subsubheading;
     }
 
     h4 {
@@ -64,6 +67,63 @@ import "@fontsource-variable/jetbrains-mono";
     h5 {
       font-size: var(--text-md);
       margin-top: var(--md-margin);
+    }
+
+    h2:before,
+    h3:before,
+    h4:before {
+      margin-right: 0.75rem;
+    }
+
+    h2:before {
+      content: counter(heading) ". ";
+      counter-increment: heading;
+    }
+
+    h3:before {
+      content: counter(heading) "." counter(subheading) " ";
+      counter-increment: subheading;
+    }
+
+    h4:before {
+      content: counter(heading) "." counter(subheading) "."
+        counter(subsubheading) " ";
+      counter-increment: subsubheading;
+    }
+
+    /* Disable automatic numbering for the abstract and references sections */
+    section:has(h2#abstract),
+    section:has(h2#references),
+    section:has(h2#bibliography) {
+      h2:before,
+      h3:before,
+      h4:before {
+        content: none;
+      }
+    }
+
+    /* Use letters counter for the Appendix section */
+    section:has(h2#appendix),
+    section:has(h2#appendices) {
+      counter-reset: heading;
+
+      h3 {
+        counter-reset: subheading;
+      }
+
+      h2:before {
+        content: none;
+      }
+
+      h3:before {
+        content: counter(heading, upper-alpha) ". ";
+        counter-increment: heading;
+      }
+
+      h4:before {
+        content: counter(heading, upper-alpha) "." counter(subheading) " ";
+        counter-increment: subheading;
+      }
     }
 
     p {
@@ -174,6 +234,18 @@ import "@fontsource-variable/jetbrains-mono";
       }
     }
 
+    figure {
+      width: 90%;
+      margin-block: 2.5rem;
+      justify-self: center;
+    }
+
+    figcaption {
+      font-size: var(--text-sm);
+      margin-top: 0rem;
+      text-align: center;
+    }
+
     @media (min-width: 50em) {
       font-size: var(--text-lg);
 
@@ -202,6 +274,10 @@ import "@fontsource-variable/jetbrains-mono";
       }
 
       table {
+        font-size: var(--text-md);
+      }
+
+      figcaption {
         font-size: var(--text-md);
       }
 

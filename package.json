@@ -22,7 +22,8 @@
     "astro": "^5.1.8",
     "rehype-citation": "^2.2.2",
     "rehype-mathjax": "^6.0.0",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "remark-sectionize": "^2.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

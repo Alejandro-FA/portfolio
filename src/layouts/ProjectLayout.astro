@@ -47,15 +47,11 @@ const { frontmatter } = Astro.props;
       </div>
     </Hero>
     <MarkdownLayout>
-      {
-        frontmatter.img && (
-          <img
-            id="thumbnail"
-            src={frontmatter.img}
-            alt={frontmatter.imgAlt || ""}
-          />
-        )
-      }
+      <figure id="thumbnail">
+        <img src={frontmatter.img} alt={frontmatter.imgAlt || ""} />
+        <figcaption>{frontmatter.imgAlt}</figcaption>
+      </figure>
+      <hr id="thumbnail-divider" />
       <slot />
     </MarkdownLayout>
   </article>
@@ -129,13 +125,26 @@ const { frontmatter } = Astro.props;
     max-width: 54ch;
   }
 
-  img#thumbnail {
-    border-radius: 1.5rem;
-    box-shadow: var(--shadow-sm);
-    background: var(--md-sys-color-surface-container-low);
-    border: 1px solid var(--outline-color);
-    margin-top: 2rem;
+  #thumbnail {
     margin-bottom: 1rem;
+    width: 100%;
+
+    img {
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      background: var(--md-sys-color-surface-container-low);
+      border: 1px solid var(--outline-color);
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  #thumbnail-divider {
+    border: none;
+    border-top: 1px dashed var(--md-sys-color-surface-container-highest);
+    margin-bottom: 4rem;
+    width: 90%;
+    justify-self: center;
   }
 
   .back-link,

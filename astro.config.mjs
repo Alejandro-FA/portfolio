@@ -6,6 +6,7 @@ import * as process from "node:process";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax/chtml";
 import rehypeCitation from "rehype-citation";
+import sectionize from "remark-sectionize";
 
 const siteUrl = process.env.SITE ?? "https://alejandrofernandez.dev";
 
@@ -20,7 +21,7 @@ export default defineConfig({
         dark: "dark-plus",
       },
     },
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, sectionize],
     rehypePlugins: [
       [rehypeMathjax, { chtml: { fontURL: "/fonts/mathjax" } }],
       [rehypeCitation, { path: "src/content/", linkCitations: true }],

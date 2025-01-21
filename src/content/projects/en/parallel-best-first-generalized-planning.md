@@ -24,7 +24,7 @@ _This was my Bachelor's Thesis project, developed at the [School of Engineering]
 
 In recent years, there has been renewed interest in closing the performance gap between state-of-the-art planning solvers and generalized planning (GP), a research area of AI that studies the automated synthesis of algorithmic-like solutions capable of solving multiple classical planning instances. One of the current advancements has been the introduction of Best-First Generalized Planning (BFGP), a GP algorithm based on a novel solution space that can be explored with heuristic search, one of the foundations of modern planners. This paper evaluates the application of parallel search techniques to BFGP, another critical component in closing the performance gap. We first discuss why BFGP is well suited for parallelization and some of its differentiating characteristics from classical planners. Then, we propose two simple shared-memory parallel strategies with good scaling with the number of cores.
 
-## 1. Introduction
+## Introduction
 
 **_Generalized planning_** (GP) has been a longstanding area of research in Artificial Intelligence (AI) [@jimenez-2019; @srivastava-2011b]. The foundation of GP is **_automated planning_**, which studies how to construct sequences of actions (commonly known as **_plans_**) to go from a specific initial state to a goal [@ghallab-2016]. Since planning is a hard problem (PSPACE-complete) [@baz-2021], solving multiple problem instances from the same domain is computationally expensive. Given this realization, GP studies the synthesis of general plans that can solve multiple problem instances from the same domain, reducing the computational complexity to a one-time up-front cost [@hu2011generalized; @srivastava-2011].
 
@@ -34,7 +34,7 @@ Parallel programming is tightly coupled with AI's recent success, as CPU manufac
 
 While using parallel techniques for classical planners is an active research topic, applications to generalized planning are much less explored. In this paper, we discuss how the BFGP algorithm can be easily parallelized by design. Furthermore, we present two shared-memory parallelization strategies that can scale linearly with the number of cores.
 
-## 2. Suitness of Best-First Generalized Planning for parallelization
+## Suitness of Best-First Generalized Planning for parallelization
 
 A **_classical planning_** problem [@haslum2019introduction] is defined as $P = \langle{\cal D}, {\cal I}\rangle$, where ${\cal D} = \langle F,A\rangle$ is the domain that comprises the set of lifted predicates $F$ and actions $A$, and ${\cal I} = \langle \Omega, I, G\rangle$ is the instance that specifies the set of constant objects, the initial state $I$, and the goal condition. A solution to $P$ is a sequence of actions or plan $\pi$ that maps the initial state to a goal state where the goal condition holds.
 
@@ -52,7 +52,7 @@ In this work, we use the generalized planner BFGP [@segovia-aguas-2024], which h
 
 Another relevant detail about BFGP is that it is a **_Greedy Best-First Search_** (GBFS). Unlike A\*, the GBFS is guided by an evaluation function $f(n) = h(n)$ that only takes into account the estimated cost of reaching the goal from node the current node $n$ (instead of also considering the solution cost up to the current node, $f(n) = g(n) + h(n)$) [@kuroiwa-2021]. In a GBFS, we are only interested in finding a solution to the problem, not necessarily the optimal one. Likewise, this trait eases the task of parallelizing BFGP since once we find a solution, it is unnecessary to check for optimality.
 
-## 3. Parallel Best-First Generalized Planning
+## Parallel Best-First Generalized Planning
 
 The following section presents our two strategies for parallelizing BFGP[^1] and evaluates their performance in $9$ different classical planning domains; $3$ of them are propositional (_corridor_, _gripper_, and _visitall_) and the other $6$ are numeric domains (_fibonacci_, _find_, _reverse_, _select_, _sorting_, and _triangular sum_).
 
@@ -236,7 +236,7 @@ The following section presents our two strategies for parallelizing BFGP[^1] and
 
 [^3]: The single-threaded results of [Table 1](#table-1) also apply to [Table 2](#table-2).
 
-## 4. Discussion
+## Discussion
 
 The first strategy performs very well, with speedups ranging from ~4x to ~98x in the most complex domains. Furthermore, increasing the number of threads always results in better performance. On the other hand, no parallel strategy strictly dominates. In some domains (like _Visitall_), the second strategy gets better scaling and performance than the first strategy, but in others, it gets slower execution times. We believe that a better prioritization of promising nodes and the use of asynchronous communication would help the second strategy perform better than the first one. To conclude, our results show that BFGP is well-suited for parallelization, and further developments could make BFGP capable of handling more complex problems from IPC planning domains [@taitler20242023].
 
