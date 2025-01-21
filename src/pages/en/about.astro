@@ -1,8 +1,18 @@
 ---
+import * as i18n from "../../i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 import ContactCTA from "../../components/ContactCTA.astro";
 import Hero from "../../components/Hero.astro";
+
+// Compute the URL for the projects page
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const thesisUrl = getRelativeLocaleUrl(
+  locale,
+  "/projects/parallel-best-first-generalized-planning/",
+);
 ---
 
 <BaseLayout
@@ -125,7 +135,7 @@ import Hero from "../../components/Hero.astro";
             </div>
             <p class="experience-description">
               While interning at the University's AI and ML research group, I
-              developed my Bachelor's thesis, <a href="/en/projects/"
+              developed my Bachelor's thesis, <a href={thesisUrl}
                 >"Parallel Strategies for Best-First Generalized Planning."</a
               > I also had the opportunity to learn from world-renowned researchers
               in automated planning.
