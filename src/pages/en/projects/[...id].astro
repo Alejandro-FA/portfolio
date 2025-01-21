@@ -1,8 +1,7 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import ProjectLayout from "../../../layouts/ProjectLayout.astro";
+import { render, type CollectionEntry } from "astro:content";
 import * as i18n from "../../../i18n";
-
-import ProjectPage from "../../../components/ProjectPage.astro";
 
 interface Props {
   entry: CollectionEntry<"projects">;
@@ -17,6 +16,9 @@ export const getStaticPaths = i18n.getLocalizedCollectionPaths(
 );
 
 const { entry } = Astro.props;
+const { Content } = await render(entry);
 ---
 
-<ProjectPage entry={entry} />
+<ProjectLayout frontmatter={entry.data}>
+  <Content />
+</ProjectLayout>

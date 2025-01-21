@@ -15,12 +15,7 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
 
 <a class="card" href={getRelativeLocaleUrl(locale, `/projects/${id}`)}>
   <span class="title">{data.title}</span>
-  <img
-    src={data.img}
-    alt={data.img_alt || ""}
-    loading="lazy"
-    decoding="async"
-  />
+  <img src={data.img} alt={data.imgAlt || ""} loading="lazy" decoding="async" />
 </a>
 
 <style>

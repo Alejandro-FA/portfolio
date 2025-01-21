@@ -1,0 +1,243 @@
+---
+title: Parallel Strategies for Best-First Generalized Planning
+publishDate: 2024-08-02 16:58:02
+img: /assets/blocks-world.webp
+imgAlt: Blocks-world planning problem example, with one gripper and two towers of blocks.
+description: |
+  We applied parallel search techniques to Best-First Generalized Planning (BFGP), a Generalized Planning algorithm based on heuristic search.
+tags:
+  - Parallel programming
+  - AI
+  - Automated planning
+  # - Generalized planning
+  # - Best-First Search
+  # - Artificial Intelligence
+  # - C++
+github: https://github.com/Alejandro-FA/bfgp-pp
+bibliography:
+  - projects/parallel-best-first-generalized-planning.bib
+---
+
+_This was my Bachelor's Thesis project, developed at the [School of Engineering](https://www.upf.edu/web/etic/home) of [Universitat Pompeu Fabra](https://www.upf.edu/). The project was tutored by [Javier Segovia-Aguas](https://scholar.google.es/citations?user=VszCB5EAAAAJ&hl=es&oi=ao), from the [Artificial Intelligence and Machine Learning Research Group](https://www.upf.edu/web/ai-ml). If you are interested in the project, you can also check the [full thesis document](http://hdl.handle.net/10230/61315). Below, you can find a copy of the [paper](https://arxiv.org/abs/2407.21485) presented in the [Highlights of Reasoning about Actions, Planning and Reactive Synthesis](https://actsynt.github.io/) workshop._
+
+## Abstract
+
+In recent years, there has been renewed interest in closing the performance gap between state-of-the-art planning solvers and generalized planning (GP), a research area of AI that studies the automated synthesis of algorithmic-like solutions capable of solving multiple classical planning instances. One of the current advancements has been the introduction of Best-First Generalized Planning (BFGP), a GP algorithm based on a novel solution space that can be explored with heuristic search, one of the foundations of modern planners. This paper evaluates the application of parallel search techniques to BFGP, another critical component in closing the performance gap. We first discuss why BFGP is well suited for parallelization and some of its differentiating characteristics from classical planners. Then, we propose two simple shared-memory parallel strategies with good scaling with the number of cores.
+
+## 1. Introduction
+
+**_Generalized planning_** (GP) has been a longstanding area of research in Artificial Intelligence (AI) [@jimenez-2019; @srivastava-2011b]. The foundation of GP is **_automated planning_**, which studies how to construct sequences of actions (commonly known as **_plans_**) to go from a specific initial state to a goal [@ghallab-2016]. Since planning is a hard problem (PSPACE-complete) [@baz-2021], solving multiple problem instances from the same domain is computationally expensive. Given this realization, GP studies the synthesis of general plans that can solve multiple problem instances from the same domain, reducing the computational complexity to a one-time up-front cost [@hu2011generalized; @srivastava-2011].
+
+The state-of-the-art planning solvers are often heuristic-based planners [@taitler20242023]. These planners guide the combinatorial search of reaching a goal state from the initial state with heuristics, usually based on computing the cost of solving a **_relaxed plan_** as an estimate of the actual cost of reaching the solution [@BONET20015]. Given the success of heuristic search in planning, Segovia-Aguas et al. [@segovia-aguas-2021; @segovia-aguas-2024] propose a heuristic-based approach to generalized planning, which they call Best-First Generalized Planning (BFGP). BFGP leverages a set of novel GP native heuristics and a new solution space, independent of the number of input instances, to compute general algorithmic solutions.
+
+Parallel programming is tightly coupled with AI's recent success, as CPU manufacturers have transitioned to multi-core processors due to single-core performance stagnation [@kishimoto-2009]. As a consequence, there has been a notable effort to parallelize fundamental algorithms like Best-First Search (BFS), and these techniques have already been successfully applied to planning domains [@baz-2021; @kishimoto-2009; @kuroiwa-2021]. One of the most impactful algorithms has been Hash Distributed A\* (HDA\*) [@kishimoto-2009], which efficiently handles the two most challenging communication overheads of Parallel BFS: distributing search nodes and keeping a consistent closed list of reached nodes. To achieve this, they use a hash function to assign each state to a unique process (which allows local duplicate detection) and asynchronous communication.
+
+While using parallel techniques for classical planners is an active research topic, applications to generalized planning are much less explored. In this paper, we discuss how the BFGP algorithm can be easily parallelized by design. Furthermore, we present two shared-memory parallelization strategies that can scale linearly with the number of cores.
+
+## 2. Suitness of Best-First Generalized Planning for parallelization
+
+A **_classical planning_** problem [@haslum2019introduction] is defined as $P = \langle{\cal D}, {\cal I}\rangle$, where ${\cal D} = \langle F,A\rangle$ is the domain that comprises the set of lifted predicates $F$ and actions $A$, and ${\cal I} = \langle \Omega, I, G\rangle$ is the instance that specifies the set of constant objects, the initial state $I$, and the goal condition. A solution to $P$ is a sequence of actions or plan $\pi$ that maps the initial state to a goal state where the goal condition holds.
+
+GP is formalized as the problem of finding an algorithm-like solution $\Pi$ (also known as generalized plan) to a set of $T$ planning problems, that is ${\cal P} = \{P_1,P_2,\ldots,P_T\}$, where all planning problems share the domain, but may differ in the instances (different objects, initial state and/or goal condition). We focus on a special kind of generalized plans named planning programs. Formally, a planning program [@segovia-aguas-2016] is a sequence of $n$ instructions $\Pi = \langle w_0, ..., w_{n-1}\rangle$, where each instruction $w_i$ is associated with a **_program line_** $0 \leq i < n$ and can be of one of the following three types:
+
+- **A planning action** $w_i \in A$, where $A$ is the set of deterministic functions of the planning domain.
+
+- **A goto instruction** $w_i = goto(i', !y)$, where $i'$ is a program line such that $0 \leq i' < n$ and $i' \ne i$, and $y$ is a proposition. Proposition $y$ can be the result of an arbitrary expression on state variables.
+
+- **A termination instruction]** $w_i = \texttt{end}$. The last instruction of a planning program is always a termination instruction.
+
+A planning program $\Pi$ is a solution to ${\cal P}$ iff the execution of $\Pi$ on every $P_i\in{\cal P}$ generates a classical plan $\pi_i$ that is a solution to the original planning problem.
+
+In this work, we use the generalized planner BFGP [@segovia-aguas-2024], which has shown good performance for computing planning programs via heuristic search. BFGP is a **_frontier-search_** algorithm [@korf2005frontier], which means that it does not repeat states during the search (i.e., all expanded planning programs are different). This unique characteristic eliminates the need to maintain a closed list of states to prevent search loops. Notably, this simplifies the algorithm's parallelization, as duplicate detection is a significant source of synchronization and communication overheads in parallel BFS.
+
+Another relevant detail about BFGP is that it is a **_Greedy Best-First Search_** (GBFS). Unlike A\*, the GBFS is guided by an evaluation function $f(n) = h(n)$ that only takes into account the estimated cost of reaching the goal from node the current node $n$ (instead of also considering the solution cost up to the current node, $f(n) = g(n) + h(n)$) [@kuroiwa-2021]. In a GBFS, we are only interested in finding a solution to the problem, not necessarily the optimal one. Likewise, this trait eases the task of parallelizing BFGP since once we find a solution, it is unnecessary to check for optimality.
+
+## 3. Parallel Best-First Generalized Planning
+
+The following section presents our two strategies for parallelizing BFGP[^1] and evaluates their performance in $9$ different classical planning domains; $3$ of them are propositional (_corridor_, _gripper_, and _visitall_) and the other $6$ are numeric domains (_fibonacci_, _find_, _reverse_, _select_, _sorting_, and _triangular sum_).
+
+[^1]: All experiments used BFGP settings in [@segovia-aguas-2022] and were run on a 12-core Intel® Core™ i7-12700 Processor (20 threads) and 32G of RAM.
+
+**Parallel strategy \#1.** It sequentially expands nodes until there are at least $N$ nodes per thread[^2]. Then, it starts a parallel search in which each thread is independent and does not share nodes with other threads. To ensure a balanced workload distribution, $N$ should be larger for planning domains that require more program lines to reach a solution. [Table 1](#table-1) evaluates the scaling of this strategy (the single-threaded execution corresponds to the original BFGP implementation).
+
+[^2]: $N$ is a parameter of the algorithm.
+
+<table>
+  <caption id="table-1">
+    <strong>Table 1.</strong> Execution time (seconds) of the first parallel strategy for different numbers of threads (<span style="font-family: MJXZERO, MJXTEX-I">t</span>). <span style="font-family: MJXZERO, MJXTEX-I">t = 1</span> is the original BFGP. Best results in bold.
+  </caption>
+  <colgroup>
+      <col span="1" class="domain" />
+      <col span="5" class="execution-time" />
+  <thead>
+    <tr style="border-bottom: 2px solid var(--md-sys-color-on-surface-variant)">
+      <th scope="col">Domain</th>
+      <th scope="colgroup" colspan=5>Execution time</th>
+    </tr>
+    <tr style="font-style: italic">
+      <td></td>
+      <th scope="col">t = 1</th>
+      <th scope="col">t = 2</th>
+      <th scope="col">t = 4</th>
+      <th scope="col">t = 8</th>
+      <th scope="col">t = 16</th>
+    </tr>
+  </thead>
+  <tr>
+    <th scope="row" style="text-align: start">Corridor</th>
+    <td>1212.37</td>
+    <td>619.8</td>
+    <td>296.2</td>
+    <td>15.24</td>
+    <td><strong>12.37<strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Fibonacci</th>
+    <td>0.46</td>
+    <td>0.24</td>
+    <td>0.13</td>
+    <td>0.08</td>
+    <td><strong>0.03</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Find</th>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Gripper</th>
+    <td>12.92</td>
+    <td>6.72</td>
+    <td>3.16</td>
+    <td>1.28</td>
+    <td><strong>0.59</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Reverse</th>
+    <td>0.08</td>
+    <td>0.04</td>
+    <td>0.02</td>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Select</th>
+    <td>0.02</td>
+    <td>0.02</td>
+    <td>0.02</td>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Sorting</th>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Triangular Sum</th>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Visitall</th>
+    <td>338.14</td>
+    <td>227.85</td>
+    <td>157.91</td>
+    <td>114.91</td>
+    <td><strong>79.48</strong></td>
+  </tr>
+</table>
+
+**Parallel strategy \#2.** In this strategy, threads distribute promising nodes during the parallel search phase, so there is a tradeoff between searching the most promising states and minimizing the communication overhead. In our solution, we compute the cost-to-go value of each generated node, and if it is equal to or better than the last expanded node, we send the new node to another thread. In contrast to HDA\*, where a hash function determines which process will receive the node, we simply cycle between all threads. This approach is viable because BFGP does not need to perform duplicate detection. [Table 2](#table-2) evaluates the scaling of this strategy.[^3]
+
+<table>
+  <caption id="table-2">
+    <strong>Table 2.</strong> Execution time (seconds) of the second parallel strategy for different numbers of threads (<span style="font-family: MJXZERO, MJXTEX-I">t</span>). Best results in bold.
+  </caption>
+  <colgroup>
+      <col span="1" class="domain" />
+      <col span="3" class="execution-time" />
+  <thead>
+    <tr style="border-bottom: 2px solid var(--md-sys-color-on-surface-variant)">
+      <th scope="col">Domain</th>
+      <th scope="colgroup" colspan=3>Execution time</th>
+    </tr>
+    <tr style="font-style: italic">
+      <td></td>
+      <th scope="col">t = 4</th>
+      <th scope="col">t = 8</th>
+      <th scope="col">t = 16</th>
+    </tr>
+  </thead>
+  <tr>
+    <th scope="row" style="text-align: start">Corridor</th>
+    <td>768.89</td>
+    <td>442.1</td>
+    <td><strong>40.81</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Fibonacci</th>
+    <td>0.13</td>
+    <td>0.1</td>
+    <td><strong>0.05</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Find</th>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Gripper</th>
+    <td>5.7</td>
+    <td><strong>2.88</strong></td>
+    <td>3.96</td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Reverse</th>
+    <td>0.04</td>
+    <td><strong>0.02</strong></td>
+    <td><strong>0.02</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Select</th>
+    <td>0.02</td>
+    <td>0.02</td>
+    <td><strong>0.01</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Sorting</th>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+    <td><strong>0.01</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Triangular Sum</th>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+    <td><strong>0.0</strong></td>
+  </tr>
+  <tr>
+    <th scope="row" style="text-align: start">Visitall</th>
+    <td>118.82</td>
+    <td>113.16</td>
+    <td><strong>20.84</strong></td>
+  </tr>
+</table>
+
+[^3]: The single-threaded results of [Table 1](#table-1) also apply to [Table 2](#table-2).
+
+## 4. Discussion
+
+The first strategy performs very well, with speedups ranging from ~4x to ~98x in the most complex domains. Furthermore, increasing the number of threads always results in better performance. On the other hand, no parallel strategy strictly dominates. In some domains (like _Visitall_), the second strategy gets better scaling and performance than the first strategy, but in others, it gets slower execution times. We believe that a better prioritization of promising nodes and the use of asynchronous communication would help the second strategy perform better than the first one. To conclude, our results show that BFGP is well-suited for parallelization, and further developments could make BFGP capable of handling more complex problems from IPC planning domains [@taitler20242023].
+
+## References
