@@ -27,12 +27,6 @@ const { href, download } = Astro.props;
     white-space: nowrap;
   }
 
-  @media (min-width: 20em) {
-    a {
-      font-size: var(--text-lg);
-    }
-  }
-
   /* Overlay for hover effects. */
   a::after {
     content: "";
@@ -50,6 +44,12 @@ const { href, download } = Astro.props;
       var(--md-sys-color-inverse-surface) 25%,
       transparent
     );
+  }
+
+  @media (min-width: 20em) {
+    a {
+      font-size: var(--text-lg);
+    }
   }
 
   @media (min-width: 50em) {

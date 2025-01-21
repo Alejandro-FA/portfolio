@@ -3,10 +3,8 @@ import { type CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import * as i18n from "../i18n";
 
-import BaseLayout from "../layouts/BaseLayout.astro";
 import MarkdownLayout from "../layouts/MarkdownLayout.astro";
 
-import ContactCTA from "../components/ContactCTA.astro";
 import Hero from "../components/Hero.astro";
 import Icon from "../components/Icon.astro";
 import Pill from "../components/Pill.astro";
@@ -21,50 +19,47 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description}>
-  <main class="wrapper stack gap-2">
-    <nav class="wrapper row" aria-labelledby="project-navigation">
-      <a class="back-link row gap-1" href={projectsUrl}
-        ><Icon icon="arrow-left" /> Projects</a
-      >
+<main class="wrapper stack gap-2">
+  <nav class="wrapper row" aria-labelledby="project-navigation">
+    <a class="back-link row gap-1" href={projectsUrl}
+      ><Icon icon="arrow-left" /> Projects</a
+    >
+    {
+      frontmatter.github && (
+        <a
+          class="github-link row gap-2"
+          href={frontmatter.github}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon viewBox="0 0 512 512" icon="github-logo" /> View on GitHub
+        </a>
+      )
+    }
+  </nav>
+  <article>
+    <Hero title={frontmatter.title} align="start">
+      <div class="details">
+        <div class="tags">
+          {frontmatter.tags.map((t: string) => <Pill>{t}</Pill>)}
+        </div>
+        <p class="description">{frontmatter.description}</p>
+      </div>
+    </Hero>
+    <MarkdownLayout>
       {
-        frontmatter.github && (
-          <a
-            class="github-link row gap-2"
-            href={frontmatter.github}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon viewBox="0 0 512 512" icon="github-logo" /> View on GitHub
-          </a>
+        frontmatter.img && (
+          <img
+            id="thumbnail"
+            src={frontmatter.img}
+            alt={frontmatter.imgAlt || ""}
+          />
         )
       }
-    </nav>
-    <article>
-      <Hero title={frontmatter.title} align="start">
-        <div class="details">
-          <div class="tags">
-            {frontmatter.tags.map((t: string) => <Pill>{t}</Pill>)}
-          </div>
-          <p class="description">{frontmatter.description}</p>
-        </div>
-      </Hero>
-      <MarkdownLayout>
-        {
-          frontmatter.img && (
-            <img
-              id="thumbnail"
-              src={frontmatter.img}
-              alt={frontmatter.imgAlt || ""}
-            />
-          )
-        }
-        <slot />
-      </MarkdownLayout>
-    </article>
-  </main>
-  <ContactCTA />
-</BaseLayout>
+      <slot />
+    </MarkdownLayout>
+  </article>
+</main>
 
 <style>
   main {
