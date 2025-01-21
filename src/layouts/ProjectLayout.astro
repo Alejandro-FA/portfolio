@@ -44,7 +44,7 @@ const { frontmatter } = Astro.props;
       <Hero title={frontmatter.title} align="start">
         <div class="details">
           <div class="tags">
-            {frontmatter.tags.map((t) => <Pill>{t}</Pill>)}
+            {frontmatter.tags.map((t: string) => <Pill>{t}</Pill>)}
           </div>
           <p class="description">{frontmatter.description}</p>
         </div>

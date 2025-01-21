@@ -1,5 +1,5 @@
 ---
-
+import "@fontsource-variable/jetbrains-mono";
 ---
 
 <div class="markdown-content">
@@ -20,6 +20,11 @@
   @font-face {
     font-family: MJXTEX-I;
     src: url("/fonts/mathjax/MathJax_Math-Italic.woff") format("woff");
+  }
+
+  html.theme-dark .astro-code,
+  html.theme-dark .astro-code span {
+    color: var(--shiki-dark) !important;
   }
 
   .markdown-content {
@@ -53,7 +58,7 @@
 
     h4 {
       font-size: var(--text-lg);
-      margin-top: var(--md-margin);
+      margin-top: 1.5rem;
     }
 
     h5 {
@@ -63,9 +68,16 @@
 
     p {
       margin-top: var(--md-margin);
-      + p {
-        text-indent: 1.5rem;
-      }
+    }
+
+    p + p,
+    ol + p,
+    ul + p,
+    table + p,
+    figure + p,
+    img + p,
+    pre + p {
+      text-indent: 1.5rem;
     }
 
     li {
@@ -115,11 +127,13 @@
       border-radius: 0.75rem;
       padding: 0.75rem;
       margin-top: var(--md-margin);
+      background-color: var(--surface-container-color) !important;
     }
 
     /* Code text */
     code {
       font-size: var(--text-sm);
+      font-family: "JetBrains Mono Variable", monospace;
     }
 
     /* rehype-citation reference entries */

@@ -85,19 +85,9 @@ Auditing the production build with [Lighthouse](https://developers.google.com/we
 
 This project uses the Material Design system for defining a color theme. Follow the instructions in the [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/) to build your own Material theme. For more information, check the [Material Design website](https://m3.material.io/blog/material-theme-builder).
 
-## Using personalized fonts
+## Using custom fonts
 
-For a personalized typography, you can integrate free fonts from [Google Fonts](https://fonts.google.com/). There are two ways to use Google Fonts in a website:
-
-- **Self-hosting** fonts (recommended for privacy and performance).
-
-- Using the **Google Fonts API** to dynamicall load fonts.
-
-### Downloading Google Fonts for self-hosting
-
-1. **Select the Fonts**. Explore the [Google Fonts website](https://fonts.google.com/) and decide which fonts (and which styles) you want to use.
-
-2. **Download the fonts in woff2 format**. Use the [`Get embed code` option](https://fonts.google.com/selection/embed) to get a download link of the desired styles of the fonts in `.woff2` format, which is web-optimized for performance. To download only a subset of the characters (and have smaller file sizes), check the [Google Fonts API](https://developers.google.com/fonts/docs/getting_started). For example, to download the Silkscreen font in `.woff2` format and only the glyphs required for the text "Loading portfolio...", send a request to [https://fonts.googleapis.com/css2?family=Silkscreen&text=Loading%20portfolio...](https://fonts.googleapis.com/css2?family=Silkscreen&text=Loading%20portfolio...). The link used to download the fonts of this project is [https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Silkscreen:wght@400;700&subset=latin](https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Silkscreen:wght@400;700&subset=latin).
+For a personalized typography, you can integrate open-source fonts from [Fontsource](https://fontsource.org/). Fontsource packages multiple fonts into individual NPM packages for easy self-hosting.
 
 ### Icons
 

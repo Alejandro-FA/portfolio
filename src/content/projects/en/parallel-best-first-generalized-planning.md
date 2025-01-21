@@ -44,7 +44,7 @@ GP is formalized as the problem of finding an algorithm-like solution $\Pi$ (als
 
 - **A goto instruction** $w_i = goto(i', !y)$, where $i'$ is a program line such that $0 \leq i' < n$ and $i' \ne i$, and $y$ is a proposition. Proposition $y$ can be the result of an arbitrary expression on state variables.
 
-- **A termination instruction]** $w_i = \texttt{end}$. The last instruction of a planning program is always a termination instruction.
+- **A termination instruction** $w_i = \texttt{end}$. The last instruction of a planning program is always a termination instruction.
 
 A planning program $\Pi$ is a solution to ${\cal P}$ iff the execution of $\Pi$ on every $P_i\in{\cal P}$ generates a classical plan $\pi_i$ that is a solution to the original planning problem.
 
