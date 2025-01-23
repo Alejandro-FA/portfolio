@@ -1,6 +1,7 @@
 ---
-import * as i18n from "../../i18n";
+import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import * as i18n from "../../i18n";
 
 // Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -14,6 +15,8 @@ import Pill from "../../components/Pill.astro";
 import ProjectPreview from "../../components/ProjectPreview.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import Skills from "../../components/Skills.astro";
+
+import portrait from "../../data/portrait.webp";
 
 // Content Fetching: List four most recent projects
 const locale = i18n.getLocaleFromUrl(Astro.url);
@@ -41,11 +44,12 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
         </Hero>
 
         <figure>
-          <img
+          <Image
             alt="Alejandro Fernández smiling in a grey polo shirt"
             width="480"
             height="620"
-            src="/assets/portrait.webp"
+            loading="eager"
+            src={portrait}
           />
         </figure>
       </div>
@@ -62,6 +66,13 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
         </p>
       </header>
 
+      <div class="cta">
+        <CallToAction href={projectsUrl}>
+          View All
+          <Icon icon="arrow-right" size="1.2em" />
+        </CallToAction>
+      </div>
+
       <div class="gallery">
         <Grid variant="offset">
           {
@@ -72,13 +83,6 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
             ))
           }
         </Grid>
-      </div>
-
-      <div class="cta">
-        <CallToAction href={projectsUrl}>
-          View All
-          <Icon icon="arrow-right" size="1.2em" />
-        </CallToAction>
       </div>
     </section>
 

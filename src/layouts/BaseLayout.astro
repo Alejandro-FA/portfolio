@@ -42,17 +42,17 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
   }
 
   :root.theme-light {
-    --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-light.svg");
-    --bg-image-header-curves: url("/assets/backgrounds/bg-main-light.svg");
-    --bg-image-main: url("/assets/backgrounds/bg-maze-light.svg");
+    --bg-image-header: url("/assets/bg-waves-gradient-light.svg");
+    --bg-image-header-curves: url("/assets/bg-main-light.svg");
+    --bg-image-main: url("/assets/bg-maze-light.svg");
     --bg-blend-mode: darken;
     --bg-svg-blend-mode: overlay;
   }
 
   :root.theme-dark {
-    --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-dark.svg");
-    --bg-image-header-curves: url("/assets/backgrounds/bg-main-dark.svg");
-    --bg-image-main: url("/assets/backgrounds/bg-maze-dark.svg");
+    --bg-image-header: url("/assets/bg-waves-gradient-dark.svg");
+    --bg-image-header-curves: url("/assets/bg-main-dark.svg");
+    --bg-image-main: url("/assets/bg-maze-dark.svg");
     --bg-blend-mode: lighten;
     --bg-svg-blend-mode: darken;
   }
@@ -60,28 +60,28 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
   /* These backgrounds are displayed below the fold, so we lazy load them
 	  once the `.loaded` class has been set.  */
   :root.loaded.theme-light {
-    --bg-image-footer: url("/assets/backgrounds/bg-footer-light.svg");
+    --bg-image-footer: url("/assets/bg-footer-light.svg");
   }
 
   :root.loaded.theme-dark {
-    --bg-image-footer: url("/assets/backgrounds/bg-footer-dark.svg");
+    --bg-image-footer: url("/assets/bg-footer-dark.svg");
   }
 
   @media (min-width: 160em) {
     :root.theme-light {
-      --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-light-thin.svg");
+      --bg-image-header: url("/assets/bg-waves-gradient-light-thin.svg");
     }
 
     :root.theme-dark {
-      --bg-image-header: url("/assets/backgrounds/bg-waves-gradient-dark-thin.svg");
+      --bg-image-header: url("/assets/bg-waves-gradient-dark-thin.svg");
     }
 
     :root.loaded.theme-light {
-      --bg-image-footer: url("/assets/backgrounds/bg-footer-light-thin.svg");
+      --bg-image-footer: url("/assets/bg-footer-light-thin.svg");
     }
 
     :root.loaded.theme-dark {
-      --bg-image-footer: url("/assets/backgrounds/bg-footer-dark-thin.svg");
+      --bg-image-footer: url("/assets/bg-footer-dark-thin.svg");
     }
   }
 
@@ -90,7 +90,7 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
     isolation: isolate;
     background:
 					/*noise*/
-      url("/assets/backgrounds/noise.png") top center/220px repeat,
+      url("/assets/noise.webp") top center/220px repeat,
       /*footer*/ var(--bg-image-footer) bottom center/100% no-repeat,
       /*header1*/ var(--bg-image-header-curves) top center/100% no-repeat,
       /*header2*/ var(--bg-image-header) top center/100% no-repeat,

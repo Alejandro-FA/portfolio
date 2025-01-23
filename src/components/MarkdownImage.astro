@@ -1,0 +1,20 @@
+---
+import { Image } from "astro:assets";
+import path from "path";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  title?: string | undefined;
+}
+
+const { src, alt, title } = Astro.props;
+
+const basename = path.basename(src.src);
+const id = basename.split(".", 2)[0];
+---
+
+<figure id={id}>
+  <Image src={src} alt={alt} title={title ?? alt} />
+  <figcaption>{alt}</figcaption>
+</figure>

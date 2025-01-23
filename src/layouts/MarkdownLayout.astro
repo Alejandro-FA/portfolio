@@ -7,21 +7,6 @@ import "@fontsource-variable/jetbrains-mono";
 </div>
 
 <style is:global>
-  @font-face {
-    font-family: MJXZERO;
-    src: url("/fonts/mathjax/MathJax_Zero.woff") format("woff");
-  }
-
-  @font-face {
-    font-family: MJXTEX;
-    src: url("/fonts/mathjax/MathJax_Main-Regular.woff") format("woff");
-  }
-
-  @font-face {
-    font-family: MJXTEX-I;
-    src: url("/fonts/mathjax/MathJax_Math-Italic.woff") format("woff");
-  }
-
   html.theme-dark .astro-code,
   html.theme-dark .astro-code span {
     color: var(--shiki-dark) !important;
@@ -32,7 +17,7 @@ import "@fontsource-variable/jetbrains-mono";
     margin-inline: auto;
     font-size: var(--text-md);
     --md-margin: 1rem;
-    counter-reset: heading;
+    counter-reset: heading table figure;
 
     h1,
     h2,
@@ -69,23 +54,23 @@ import "@fontsource-variable/jetbrains-mono";
       margin-top: var(--md-margin);
     }
 
-    h2:before,
-    h3:before,
-    h4:before {
+    h2::before,
+    h3::before,
+    h4::before {
       margin-right: 0.75rem;
     }
 
-    h2:before {
+    h2::before {
       content: counter(heading) ". ";
       counter-increment: heading;
     }
 
-    h3:before {
+    h3::before {
       content: counter(heading) "." counter(subheading) " ";
       counter-increment: subheading;
     }
 
-    h4:before {
+    h4::before {
       content: counter(heading) "." counter(subheading) "."
         counter(subsubheading) " ";
       counter-increment: subsubheading;
@@ -95,9 +80,9 @@ import "@fontsource-variable/jetbrains-mono";
     section:has(h2#abstract),
     section:has(h2#references),
     section:has(h2#bibliography) {
-      h2:before,
-      h3:before,
-      h4:before {
+      h2::before,
+      h3::before,
+      h4::before {
         content: none;
       }
     }
@@ -105,25 +90,32 @@ import "@fontsource-variable/jetbrains-mono";
     /* Use letters counter for the Appendix section */
     section:has(h2#appendix),
     section:has(h2#appendices) {
-      counter-reset: heading;
+      counter-reset: heading-appendix;
 
       h3 {
-        counter-reset: subheading;
+        counter-reset: subheading-appendix;
       }
 
-      h2:before {
+      h2::before {
         content: none;
       }
 
-      h3:before {
-        content: counter(heading, upper-alpha) ". ";
-        counter-increment: heading;
+      h3::before {
+        content: counter(heading-appendix, upper-alpha) ". ";
+        counter-increment: heading-appendix;
       }
 
-      h4:before {
-        content: counter(heading, upper-alpha) "." counter(subheading) " ";
-        counter-increment: subheading;
+      h4::before {
+        content: counter(heading-appendix, upper-alpha) "."
+          counter(subheading-appendix) " ";
+        counter-increment: subheading-appendix;
       }
+    }
+
+    figcaption::before {
+      content: "Figure " counter(figure) ". ";
+      font-weight: bold;
+      counter-increment: figure;
     }
 
     p {
@@ -219,8 +211,18 @@ import "@fontsource-variable/jetbrains-mono";
       justify-self: center;
       font-size: var(--text-sm);
 
+      p {
+        margin: 0;
+      }
+
       caption {
         margin-bottom: 1.5rem;
+      }
+
+      caption p:first-of-type::before {
+        content: "Table " counter(table) ". ";
+        font-weight: bold;
+        counter-increment: table;
       }
 
       thead th {

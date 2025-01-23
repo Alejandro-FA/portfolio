@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { type CollectionEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import * as i18n from "../i18n";
@@ -48,8 +49,12 @@ const { frontmatter } = Astro.props;
     </Hero>
     <MarkdownLayout>
       <figure id="thumbnail">
-        <img src={frontmatter.img} alt={frontmatter.imgAlt || ""} />
-        <figcaption>{frontmatter.imgAlt}</figcaption>
+        <Image
+          src={frontmatter.thumbnail}
+          alt={frontmatter.thumbnailAlt || ""}
+          loading="eager"
+        />
+        <figcaption>{frontmatter.thumbnailAlt}</figcaption>
       </figure>
       <hr id="thumbnail-divider" />
       <slot />
@@ -118,6 +123,8 @@ const { frontmatter } = Astro.props;
   .tags {
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .description {
@@ -136,6 +143,11 @@ const { frontmatter } = Astro.props;
       border: 1px solid var(--outline-color);
       margin-top: 2rem;
       margin-bottom: 0.5rem;
+    }
+
+    figcaption::before {
+      content: none;
+      counter-increment: none;
     }
   }
 
@@ -177,6 +189,10 @@ const { frontmatter } = Astro.props;
     .details {
       flex-direction: row;
       gap: 2.5rem;
+    }
+
+    .tags {
+      justify-content: flex-start;
     }
   }
 </style>

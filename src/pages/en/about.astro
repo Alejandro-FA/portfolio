@@ -1,11 +1,14 @@
 ---
-import * as i18n from "../../i18n";
+import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import * as i18n from "../../i18n";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 import ContactCTA from "../../components/ContactCTA.astro";
 import Hero from "../../components/Hero.astro";
+
+import coverImage from "../../data/hiking_bags.jpg";
 
 // Compute the URL for the projects page
 const locale = i18n.getLocaleFromUrl(Astro.url);
@@ -24,11 +27,12 @@ const thesisUrl = getRelativeLocaleUrl(
       title="About"
       tagline="Thanks for stopping by. Read below to learn more about myself and my background."
     >
-      <img
+      <Image
         width="1553"
         height="873"
-        src="/assets/hiking_bags.webp"
+        src={coverImage}
         alt="Hiking bags in the mountains, from a trip to the Pyrenees"
+        loading="eager"
       />
     </Hero>
 

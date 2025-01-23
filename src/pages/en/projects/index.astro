@@ -1,0 +1,55 @@
+---
+import * as i18n from "../../../i18n";
+
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+import ContactCTA from "../../../components/ContactCTA.astro";
+import ProjectPreview from "../../../components/ProjectPreview.astro";
+import Hero from "../../../components/Hero.astro";
+import Grid from "../../../components/Grid.astro";
+
+// We show all projects available in the default locale.
+// The ProjectPreview will create links to the proper localization.
+// This way, if a project is not available in the current locale, the
+// preview would still show, but the link would redirect to the
+// fallback locale if available.
+// However, if no fallback locale is available, the link will produce
+// a 404 error.
+const locale = i18n.defaultLocale;
+const projects = (await i18n.getLocalizedCollection(locale, "projects")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+const eagerlyLoadedProjects = 4;
+---
+
+<BaseLayout
+  title="Projects | Alejandro Fernández Alburquerque"
+  description="Learn about Alejandro Fernández's most recent projects"
+>
+  <main class="wrapper stack gap-8">
+    <Hero
+      title="My Projects"
+      tagline="See my most recent projects below to get an idea of my past experience."
+      align="start"
+    />
+    <Grid variant="offset">
+      {
+        projects.map((project, idx) => (
+          <li>
+            <ProjectPreview
+              project={project}
+              loading={idx < eagerlyLoadedProjects ? "eager" : "lazy"}
+            />
+          </li>
+        ))
+      }
+    </Grid>
+  </main>
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  main {
+    margin-bottom: 5rem;
+  }
+</style>

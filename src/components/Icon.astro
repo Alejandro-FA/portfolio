@@ -4,9 +4,9 @@ import { iconPaths } from "./IconPaths";
 
 interface Props {
   icon: keyof typeof iconPaths;
-  color?: string;
-  gradient?: boolean;
-  size?: string;
+  color?: string | undefined;
+  gradient?: boolean | undefined;
+  size?: string | undefined;
   viewBox?: string | undefined;
 }
 

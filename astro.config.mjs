@@ -1,7 +1,8 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { locales, defaultLocale } from "./src/i18n/config";
+import { locales, defaultLocale, fallbacks } from "./src/i18n/config";
 import * as process from "node:process";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax/chtml";
@@ -14,6 +15,10 @@ const siteUrl = process.env.SITE ?? "https://alejandrofernandez.dev";
 export default defineConfig({
   output: "static",
   site: siteUrl,
+  build: {
+    // Addresses the "Eliminate render-blocking resources" warning: https://developer.chrome.com/docs/lighthouse/performance/render-blocking-resources/
+    inlineStylesheets: "always",
+  },
   markdown: {
     shikiConfig: {
       themes: {
@@ -23,14 +28,14 @@ export default defineConfig({
     },
     remarkPlugins: [remarkMath, sectionize],
     rehypePlugins: [
-      [rehypeMathjax, { chtml: { fontURL: "/fonts/mathjax" } }],
-      [rehypeCitation, { path: "src/content/", linkCitations: true }],
+      [rehypeMathjax, { chtml: { fontURL: "/fonts/" } }],
+      [rehypeCitation, { path: "src/data/projects", linkCitations: true }],
     ],
   },
   i18n: {
     defaultLocale: defaultLocale,
     locales: [...locales],
-    fallback: { es: "en" },
+    fallback: fallbacks,
     routing: {
       prefixDefaultLocale: true,
     },
@@ -50,5 +55,6 @@ export default defineConfig({
         locales: Object.fromEntries(locales.map((locale) => [locale, locale])),
       },
     }),
+    mdx(),
   ],
 });
