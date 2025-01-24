@@ -268,7 +268,8 @@ import "@fontsource-variable/jetbrains-mono";
         margin-bottom: 1.5rem;
       }
 
-      caption p:first-of-type::before {
+      caption:has(p) p:first-of-type::before,
+      caption:not(:has(p))::before {
         content: "Table " counter(table) ". ";
         font-weight: bold;
         counter-increment: table;
