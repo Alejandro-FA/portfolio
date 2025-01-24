@@ -18,6 +18,8 @@ bibliography:
   - parallel-best-first-generalized-planning/references.bib
 ---
 
+import ScrollableTable from "../../../components/ScrollableTable.astro";
+
 _This was my Bachelor's Thesis project, developed at the [School of Engineering](https://www.upf.edu/web/etic/home) of [Universitat Pompeu Fabra](https://www.upf.edu/). The project was tutored by [Javier Segovia-Aguas](https://scholar.google.es/citations?user=VszCB5EAAAAJ&hl=es&oi=ao), from the [Artificial Intelligence and Machine Learning Research Group](https://www.upf.edu/web/ai-ml). If you are interested in the project, you can also check the [full thesis document](http://hdl.handle.net/10230/61315). Below, you can find a copy of the [paper](https://arxiv.org/abs/2407.21485) presented in the [Highlights of Reasoning about Actions, Planning and Reactive Synthesis](https://actsynt.github.io/) workshop._
 
 ## Abstract
@@ -62,7 +64,7 @@ The following section presents our two strategies for parallelizing BFGP[^1] and
 
 [^2]: $N$ is a parameter of the algorithm.
 
-<table>
+<ScrollableTable>
   <caption id="table-1">
     Execution time (seconds) of the first parallel strategy for different
     numbers of threads ($t$). $t = 1$ is the original BFGP. Best results in
@@ -224,11 +226,11 @@ The following section presents our two strategies for parallelizing BFGP[^1] and
       <strong>79.48</strong>
     </td>
   </tr>
-</table>
+</ScrollableTable>
 
 **Parallel strategy \#2.** In this strategy, threads distribute promising nodes during the parallel search phase, so there is a tradeoff between searching the most promising states and minimizing the communication overhead. In our solution, we compute the cost-to-go value of each generated node, and if it is equal to or better than the last expanded node, we send the new node to another thread. In contrast to HDA\*, where a hash function determines which process will receive the node, we simply cycle between all threads. This approach is viable because BFGP does not need to perform duplicate detection. [Table 2](#table-2) evaluates the scaling of this strategy.[^3]
 
-<table>
+<ScrollableTable>
   <caption id="table-2">
     Execution time (seconds) of the second parallel strategy for different
     numbers of threads ($t$). Best results in bold.
@@ -355,7 +357,7 @@ The following section presents our two strategies for parallelizing BFGP[^1] and
       <strong>20.84</strong>
     </td>
   </tr>
-</table>
+</ScrollableTable>
 
 [^3]: The single-threaded results of [Table 1](#table-1) also apply to [Table 2](#table-2).
 

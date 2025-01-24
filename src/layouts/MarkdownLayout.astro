@@ -23,8 +23,13 @@ import "@fontsource-variable/jetbrains-mono";
     h2,
     h3,
     h4,
-    h5 {
+    h5,
+    h6 {
       color: var(--md-sys-color-primary);
+      a {
+        color: inherit;
+        font-weight: inherit;
+      }
     }
 
     h1 {
@@ -35,28 +40,37 @@ import "@fontsource-variable/jetbrains-mono";
     h2 {
       font-size: var(--text-2xl);
       margin-top: 3rem;
-      counter-reset: subheading;
+      counter-reset: subheading-1;
     }
 
     h3 {
       font-size: var(--text-xl);
       margin-top: 2rem;
-      counter-reset: subsubheading;
+      counter-reset: subheading-2;
     }
 
     h4 {
       font-size: var(--text-lg);
       margin-top: 1.5rem;
+      counter-reset: subheading-3;
     }
 
     h5 {
       font-size: var(--text-md);
       margin-top: var(--md-margin);
+      counter-reset: subheading-4;
+    }
+
+    h6 {
+      font-size: var(--text-sm);
+      margin-top: var(--md-margin);
     }
 
     h2::before,
     h3::before,
-    h4::before {
+    h4::before,
+    h5::before,
+    h6::before {
       margin-right: 0.75rem;
     }
 
@@ -66,14 +80,27 @@ import "@fontsource-variable/jetbrains-mono";
     }
 
     h3::before {
-      content: counter(heading) "." counter(subheading) " ";
-      counter-increment: subheading;
+      content: counter(heading) "." counter(subheading-1) " ";
+      counter-increment: subheading-1;
     }
 
     h4::before {
-      content: counter(heading) "." counter(subheading) "."
-        counter(subsubheading) " ";
-      counter-increment: subsubheading;
+      content: counter(heading) "." counter(subheading-1) "."
+        counter(subheading-2) " ";
+      counter-increment: subheading-2;
+    }
+
+    h5::before {
+      content: counter(heading) "." counter(subheading-1) "."
+        counter(subheading-2) "." counter(subheading-3) " ";
+      counter-increment: subheading-3;
+    }
+
+    h6::before {
+      content: counter(heading) "." counter(subheading-1) "."
+        counter(subheading-2) "." counter(subheading-3) "."
+        counter(subheading-4) " ";
+      counter-increment: subheading-4;
     }
 
     /* Disable automatic numbering for the abstract and references sections */
@@ -82,7 +109,9 @@ import "@fontsource-variable/jetbrains-mono";
     section:has(h2#bibliography) {
       h2::before,
       h3::before,
-      h4::before {
+      h4::before,
+      h5::before,
+      h6::before {
         content: none;
       }
     }
@@ -93,7 +122,15 @@ import "@fontsource-variable/jetbrains-mono";
       counter-reset: heading-appendix;
 
       h3 {
-        counter-reset: subheading-appendix;
+        counter-reset: subheading-appendix-1;
+      }
+
+      h4 {
+        counter-reset: subheading-appendix-2;
+      }
+
+      h5 {
+        counter-reset: subheading-appendix-3;
       }
 
       h2::before {
@@ -107,8 +144,21 @@ import "@fontsource-variable/jetbrains-mono";
 
       h4::before {
         content: counter(heading-appendix, upper-alpha) "."
-          counter(subheading-appendix) " ";
-        counter-increment: subheading-appendix;
+          counter(subheading-appendix-1) " ";
+        counter-increment: subheading-appendix-1;
+      }
+
+      h5::before {
+        content: counter(heading-appendix, upper-alpha) "."
+          counter(subheading-appendix-1) "." counter(subheading-appendix-2) " ";
+        counter-increment: subheading-appendix-2;
+      }
+
+      h6::before {
+        content: counter(heading-appendix, upper-alpha) "."
+          counter(subheading-appendix-1) "." counter(subheading-appendix-2) "."
+          counter(subheading-appendix-3) " ";
+        counter-increment: subheading-appendix-3;
       }
     }
 
@@ -204,11 +254,10 @@ import "@fontsource-variable/jetbrains-mono";
     }
 
     table {
-      width: 90%;
-      margin-block: 2.5rem;
+      width: 100%;
+      margin: 0 auto;
       border-block: 2px solid var(--md-sys-color-on-surface-variant);
       border-collapse: collapse;
-      justify-self: center;
       font-size: var(--text-sm);
 
       p {
@@ -237,9 +286,8 @@ import "@fontsource-variable/jetbrains-mono";
     }
 
     figure {
-      width: 90%;
-      margin-block: 2.5rem;
-      justify-self: center;
+      width: 100%;
+      margin: 2.5rem auto;
     }
 
     figcaption {
@@ -271,12 +319,21 @@ import "@fontsource-variable/jetbrains-mono";
         font-size: var(--text-lg);
       }
 
+      h6 {
+        font-size: var(--text-md);
+      }
+
       blockquote {
         font-size: var(--text-xl);
       }
 
       table {
         font-size: var(--text-md);
+        width: 90%;
+      }
+
+      figure {
+        width: 90%;
       }
 
       figcaption {

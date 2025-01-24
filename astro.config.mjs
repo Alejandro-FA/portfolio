@@ -5,9 +5,11 @@ import sitemap from "@astrojs/sitemap";
 import { locales, defaultLocale, fallbacks } from "./src/i18n/config";
 import * as process from "node:process";
 import remarkMath from "remark-math";
+import sectionize from "remark-sectionize";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeMathjax from "rehype-mathjax/chtml";
 import rehypeCitation from "rehype-citation";
-import sectionize from "remark-sectionize";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const siteUrl = process.env.SITE ?? "https://alejandrofernandez.dev";
 
@@ -28,6 +30,8 @@ export default defineConfig({
     },
     remarkPlugins: [remarkMath, sectionize],
     rehypePlugins: [
+      rehypeHeadingIds,
+      [rehypeAutolinkHeadings, { behavior: "wrap" }],
       [rehypeMathjax, { chtml: { fontURL: "/fonts/" } }],
       [rehypeCitation, { path: "src/data/projects", linkCitations: true }],
     ],
