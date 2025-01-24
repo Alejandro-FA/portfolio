@@ -53,6 +53,8 @@ const { frontmatter } = Astro.props;
           src={frontmatter.thumbnail}
           alt={frontmatter.thumbnailAlt || ""}
           loading="eager"
+          sizes="(min-width: 900px) 793px, calc(93.62vw - 31px)"
+          widths={[256, 634, 930, 1300, 1586, 1830, 2048]}
         />
         <figcaption>{frontmatter.thumbnailAlt}</figcaption>
       </figure>

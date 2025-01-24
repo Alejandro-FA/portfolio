@@ -22,6 +22,8 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
       src={project.data.thumbnail}
       alt={project.data.thumbnailAlt || ""}
       loading={loading}
+      widths={[256, 340, 480, 637, 939, 1366, 1640, 1878]}
+      sizes="(min-width: 800px) 608px, (min-width: 390px) calc(100vw - 48px), calc(26.67vw + 216px)"
     />
   </article>
 </a>

@@ -28,11 +28,11 @@ const thesisUrl = getRelativeLocaleUrl(
       tagline="Thanks for stopping by. Read below to learn more about myself and my background."
     >
       <Image
-        width="1553"
-        height="873"
         src={coverImage}
         alt="Hiking bags in the mountains, from a trip to the Pyrenees"
         loading="eager"
+        widths={[256, 637, 936, 1270, 1536, 1810, 2048]}
+        sizes="(min-width: 1420px) 768px, (min-width: 800px) calc(52.83vw + 28px), calc(100vw - 48px)"
       />
     </Hero>
 

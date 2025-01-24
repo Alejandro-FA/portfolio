@@ -16,7 +16,7 @@ import ProjectPreview from "../../components/ProjectPreview.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import Skills from "../../components/Skills.astro";
 
-import portrait from "../../data/portrait.webp";
+import portrait from "../../data/portrait.png";
 
 // Content Fetching: List four most recent projects
 const locale = i18n.getLocaleFromUrl(Astro.url);
@@ -45,11 +45,11 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
 
         <figure>
           <Image
-            alt="Alejandro Fernández smiling in a grey polo shirt"
-            width="480"
-            height="620"
-            loading="eager"
             src={portrait}
+            alt="Alejandro Fernández smiling in a grey polo shirt"
+            loading="eager"
+            widths={[256, 340, 456, 637, 936, 1170, 1368, 1460]}
+            sizes="(min-width: 1400px) 456px, (min-width: 900px) calc(35.63vw - 36px), (min-width: 800px) calc(83.75vw - 460px), calc(100vw - 48px)"
           />
         </figure>
       </div>
