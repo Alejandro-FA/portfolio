@@ -26,67 +26,82 @@ const projects = (await i18n.getLocalizedCollection(locale, "projects"))
 
 // Compute the URL for the projects page
 const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
+
+// Define the CV file name
+const cvFile = "alejandro_fernandez_cv-en.pdf";
 ---
 
 <BaseLayout>
-  <main class="wrapper stack gap-20 lg:gap-48">
-    <section class="stack gap-8 lg:gap-20">
-      <div class="hero">
-        <Hero
-          title="Hello, I'm Alejandro Fernández"
-          tagline="I am a recently-graduated Computer Engineer from Barcelona, Spain."
-          align="start"
-        >
-          <div class="roles">
-            <Pill><Icon icon="code" size="1.33em" /> Software Developer</Pill>
-            <Pill><Icon icon="ai" size="1.33em" /> AI Engineer</Pill>
+  <div class="stack gap-20 lg:gap-30">
+    <main class="wrapper stack gap-20 lg:gap-30">
+      <section class="stack gap-8 lg:gap-20">
+        <div class="hero">
+          <div class="hero-title">
+            <Hero
+              title="Hello, I'm Alejandro Fernández"
+              tagline="I am a recently-graduated Computer Engineer from Barcelona, Spain."
+              align="start"
+            >
+              <div class="roles">
+                <Pill
+                  ><Icon icon="code" size="1.33em" /> Software Developer</Pill
+                >
+                <Pill><Icon icon="ai" size="1.33em" /> AI Engineer</Pill>
+              </div>
+            </Hero>
           </div>
-        </Hero>
 
-        <figure>
-          <Image
-            src={portrait}
-            alt="Alejandro Fernández smiling in a grey polo shirt"
-            loading="eager"
-            widths={[256, 340, 456, 637, 936, 1170, 1368, 1460]}
-            sizes="(min-width: 1400px) 456px, (min-width: 900px) calc(35.63vw - 36px), (min-width: 800px) calc(83.75vw - 460px), calc(100vw - 48px)"
-          />
-        </figure>
-      </div>
+          <div class="cv-download">
+            <CallToAction href={`/r2/${cvFile}`} download={cvFile} small={true}>
+              Download CV
+              <Icon icon="file-arrow-down" size="1.33em" />
+            </CallToAction>
+          </div>
 
-      <Skills />
-    </section>
+          <figure class="portrait">
+            <Image
+              src={portrait}
+              alt="Alejandro Fernández smiling in a grey polo shirt"
+              loading="eager"
+              widths={[256, 340, 456, 637, 936, 1170, 1368, 1460]}
+              sizes="(min-width: 1400px) 456px, (min-width: 900px) calc(35.63vw - 36px), (min-width: 800px) calc(83.75vw - 460px), calc(100vw - 48px)"
+            />
+          </figure>
+        </div>
 
-    <section class="section with-cta">
-      <header class="section-header stack gap-2 lg:gap-4">
-        <h3>Selected Projects</h3>
-        <p>
-          Take a look below at some interesting projects that I worked on during
-          my studies.
-        </p>
-      </header>
+        <Skills />
+      </section>
 
-      <div class="cta">
-        <CallToAction href={projectsUrl}>
-          View All
-          <Icon icon="arrow-right" size="1.2em" />
-        </CallToAction>
-      </div>
+      <section class="section with-cta">
+        <header class="section-header stack gap-2 lg:gap-4">
+          <h3>Selected Projects</h3>
+          <p>
+            Take a look below at some interesting projects that I worked on
+            during my studies.
+          </p>
+        </header>
 
-      <div class="gallery">
-        <Grid variant="offset">
-          {
-            projects.map((project) => (
-              <li>
-                <ProjectPreview project={project} />
-              </li>
-            ))
-          }
-        </Grid>
-      </div>
-    </section>
+        <div class="cta">
+          <CallToAction href={projectsUrl}>
+            View All
+            <Icon icon="arrow-right" size="1.2em" />
+          </CallToAction>
+        </div>
 
-    <!-- <section class="section">
+        <div class="gallery">
+          <Grid variant="offset">
+            {
+              projects.map((project) => (
+                <li>
+                  <ProjectPreview project={project} />
+                </li>
+              ))
+            }
+          </Grid>
+        </div>
+      </section>
+
+      <!-- <section class="section">
         <header class="section-header stack gap-2 lg:gap-4">
           <h3>Mentions</h3>
           <p>
@@ -113,15 +128,12 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
           </Grid>
         </div>
       </section> -->
-  </main>
-  <ContactCTA />
+    </main>
+    <ContactCTA />
+  </div>
 </BaseLayout>
 
 <style>
-  main {
-    margin-bottom: 12rem;
-  }
-
   .hero {
     display: flex;
     flex-direction: column;
@@ -130,6 +142,10 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
   }
 
   .roles {
+    display: none;
+  }
+
+  .cv-download {
     display: none;
   }
 
@@ -150,9 +166,30 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
   @media (min-width: 50em) {
     .hero {
       display: grid;
+      grid-template-areas:
+        "hero portrait"
+        "hero cv";
       grid-template-columns: 6fr 4fr;
+      grid-template-rows: 1fr auto;
       padding-inline: 2.5rem;
-      gap: 3.75rem;
+      column-gap: 3.75rem;
+      row-gap: 1rem;
+    }
+
+    .hero-title {
+      grid-area: hero;
+    }
+
+    .portrait {
+      grid-area: portrait;
+      border-radius: 4.5rem;
+    }
+
+    .cv-download {
+      display: flex;
+      gap: 0.5rem;
+      grid-area: cv;
+      justify-self: center;
     }
 
     .roles {
@@ -161,12 +198,26 @@ const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
       gap: 0.5rem;
     }
 
-    .hero figure {
-      border-radius: 4.5rem;
-    }
-
     .hero img {
       aspect-ratio: 3 / 4;
+    }
+  }
+
+  @media (min-width: 60em) {
+    .hero {
+      grid-template-areas:
+        "hero portrait"
+        "cv portrait";
+      grid-template-rows: min-content auto;
+    }
+
+    .hero-title {
+      align-self: end;
+    }
+
+    .cv-download {
+      justify-self: start;
+      align-self: start;
     }
   }
 

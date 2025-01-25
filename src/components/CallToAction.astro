@@ -2,12 +2,13 @@
 interface Props {
   href: string;
   download?: string | undefined;
+  small?: boolean | undefined;
 }
 
-const { href, download } = Astro.props;
+const { href, download, small = false } = Astro.props;
 ---
 
-<a href={href} download={download}><slot /></a>
+<a href={href} download={download} class={small ? "" : "large"}><slot /></a>
 
 <style>
   a {
@@ -15,16 +16,23 @@ const { href, download } = Astro.props;
     display: flex;
     place-content: center;
     text-align: center;
-    padding: 0.56em 2em;
-    gap: 0.8em;
+    padding: 0.5em 1em;
+    gap: 0.5em;
     color: var(--md-sys-color-on-tertiary-container);
     text-decoration: none;
-    line-height: 1.1;
+    line-height: 1.35;
     border-radius: 999rem;
     overflow: hidden;
     background: var(--md-sys-color-tertiary-container);
     box-shadow: var(--shadow-md);
     white-space: nowrap;
+    align-items: center;
+  }
+
+  a.large {
+    padding: 0.56em 2em;
+    gap: 0.8em;
+    line-height: 1.1;
   }
 
   /* Overlay for hover effects. */
@@ -48,12 +56,18 @@ const { href, download } = Astro.props;
 
   @media (min-width: 20em) {
     a {
+      font-size: var(--text-md);
+    }
+    a.large {
       font-size: var(--text-lg);
     }
   }
 
   @media (min-width: 50em) {
     a {
+      font-size: var(--text-lg);
+    }
+    a.large {
       padding: 1.125rem 2.5rem;
       font-size: var(--text-xl);
     }
