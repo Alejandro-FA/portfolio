@@ -22,7 +22,7 @@ const { frontmatter } = Astro.props;
 
 <main class="wrapper stack gap-2">
   <nav class="wrapper row" aria-labelledby="project-navigation">
-    <a class="back-link row gap-1" href={projectsUrl}
+    <a class="back-link row gap-1" href={projectsUrl} data-astro-prefetch
       ><Icon icon="arrow-left" /> Projects</a
     >
     {

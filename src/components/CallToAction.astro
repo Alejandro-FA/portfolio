@@ -7,7 +7,7 @@ interface Props {
 const { href, download } = Astro.props;
 ---
 
-<a href={href} download={download}><slot /></a>
+<a href={href} download={download} data-astro-prefetch><slot /></a>
 
 <style>
   a {

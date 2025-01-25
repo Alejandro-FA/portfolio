@@ -56,7 +56,11 @@ const iconLinks: {
 
 <nav aria-labelledby="main-navigation">
   <div class="menu-header">
-    <a href={getRelativeLocaleUrl(locale, "/")} class="site-title">
+    <a
+      href={getRelativeLocaleUrl(locale, "/")}
+      class="site-title"
+      data-astro-prefetch
+    >
       <Icon
         icon="terminal-window"
         color="var(--md-sys-color-primary)"
@@ -91,6 +95,7 @@ const iconLinks: {
                 },
               ]}
               href={href}
+              data-astro-prefetch
             >
               {label}
             </a>
@@ -104,7 +109,7 @@ const iconLinks: {
       <div class="socials">
         {
           iconLinks.map(({ href, icon, label }) => (
-            <a href={href} class="social">
+            <a href={href} class="social" data-astro-prefetch>
               <span class="sr-only">{label}</span>
               <Icon icon={icon} />
             </a>
@@ -130,6 +135,7 @@ const iconLinks: {
                 },
               ]}
               href={href}
+              data-astro-prefetch
             >
               {label}
             </a>
@@ -141,7 +147,7 @@ const iconLinks: {
       <div class="socials">
         {
           iconLinks.map(({ href, icon, label, viewBox }) => (
-            <a href={href} class="social">
+            <a href={href} class="social" data-astro-prefetch>
               <span class="sr-only">{label}</span>
               <Icon icon={icon} viewBox={viewBox} />
             </a>

@@ -21,6 +21,7 @@ export default defineConfig({
     // Addresses the "Eliminate render-blocking resources" warning: https://developer.chrome.com/docs/lighthouse/performance/render-blocking-resources/
     inlineStylesheets: "always",
   },
+  prefetch: true,
   markdown: {
     shikiConfig: {
       themes: {

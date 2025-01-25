@@ -15,7 +15,11 @@ const { project, loading } = Astro.props;
 const locale = i18n.getLocaleFromUrl(Astro.url);
 ---
 
-<a class="card" href={getRelativeLocaleUrl(locale, `/projects/${project.id}`)}>
+<a
+  class="card"
+  href={getRelativeLocaleUrl(locale, `/projects/${project.id}`)}
+  data-astro-prefetch
+>
   <article>
     <h1 id="project-title">{project.data.title}</h1>
     <Image
