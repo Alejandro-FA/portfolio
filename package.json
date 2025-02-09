@@ -15,12 +15,12 @@
     "deploy": "npm run build && wrangler pages deploy --branch=${DEPLOY_BRANCH}"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.7",
+    "@astrojs/mdx": "^4.0.8",
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/jetbrains-mono": "^5.1.2",
     "@fontsource-variable/public-sans": "^5.1.2",
     "@fontsource-variable/rubik": "^5.1.1",
-    "astro": "^5.1.9",
+    "astro": "^5.2.5",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-citation": "^2.2.2",
     "rehype-mathjax": "^6.0.0",
@@ -29,14 +29,14 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
-    "@cloudflare/workers-types": "^4.20250124.3",
+    "@cloudflare/workers-types": "^4.20250204.0",
     "@eslint/js": "^9.14.0",
     "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.19.0",
+    "eslint": "^9.20.0",
     "prettier-plugin-astro": "^0.14.1",
-    "shellcheck": "^3.0.0",
-    "typescript-eslint": "^8.21.0",
-    "wrangler": "^3.105.1"
+    "shellcheck": "^3.1.0",
+    "typescript-eslint": "^8.23.0",
+    "wrangler": "^3.107.3"
   },
   "engines": {
     "node": "^22.13.0"
