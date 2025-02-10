@@ -46,7 +46,7 @@ export default defineConfig({
   },
   redirects: {
     "/": `/${defaultLocale}/`,
-    "/about/": `/${defaultLocale}/about/`,
+    "/about": `/${defaultLocale}/about/`,
     "/projects/[...id]": `/${defaultLocale}/projects/[...id]`,
   },
   integrations: [
