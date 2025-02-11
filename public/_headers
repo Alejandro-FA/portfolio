@@ -1,6 +1,8 @@
 /*
     # CSP info: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
     Content-Security-Policy: script-src 'sha256-gqwGvQ/zO78rnMYTU/rRnBwtRk02bkDGeUS2mvKRl9Y=' 'sha256-gLu726IDR52wuNtLLM71dwTaxqKD/PaxK6n6jMOElfc=' 'sha256-UNCeWCSQsxRY0d9y23KImrGOX2SXSXlUkNYhzSOQIR4=' 'sha256-q/tPjGwxIRnCl3prMKqVAkd18gOFJHy4BfBDGEcqU6g=' 'strict-dynamic'; object-src 'none'; base-uri 'none';
-    # COOP info: https://web.dev/articles/why-coop-coep?utm_source=lighthouse&utm_medium=devtools#coop
+    # COOP info: https://web.dev/articles/why-coop-coep
     Cross-Origin-Opener-Policy: same-origin
     Cross-Origin-Embedder-Policy: require-corp
+    # HSTS policy info: https://developer.chrome.com/docs/lighthouse/best-practices/has-hsts
+    Strict-Transport-Security: max-age=3600; includeSubDomains
