@@ -13,6 +13,10 @@ const { project, loading } = Astro.props;
 
 /** i18n utilities */
 const locale = i18n.getLocaleFromUrl(Astro.url);
+const sizes =
+  loading === "eager"
+    ? "(min-width: 1328px) 608px, (min-width: 50em) calc(50vw - 3.5rem), calc(100vw - 3rem)"
+    : "auto";
 ---
 
 <a class="card" href={getRelativeLocaleUrl(locale, `/projects/${project.id}`)}>
@@ -22,8 +26,10 @@ const locale = i18n.getLocaleFromUrl(Astro.url);
       src={project.data.thumbnail}
       alt={project.data.thumbnailAlt || ""}
       loading={loading}
-      widths={[256, 340, 480, 637, 939, 1366, 1640, 1878]}
-      sizes="(min-width: 800px) 608px, (min-width: 390px) calc(100vw - 48px), calc(26.67vw + 216px)"
+      widths={[
+        300, 380, 570, 608, 760, 855, 912, 950, 1140, 1216, 1368, 1520, 1824,
+      ]}
+      sizes={sizes}
     />
   </article>
 </a>

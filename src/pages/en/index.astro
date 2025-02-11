@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import * as i18n from "../../i18n";
 
@@ -15,8 +14,10 @@ import Pill from "../../components/Pill.astro";
 import ProjectPreview from "../../components/ProjectPreview.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import Skills from "../../components/Skills.astro";
+import PortraitPicture from "../../components/PortraitPicture.astro";
 
-import portrait from "../../data/portrait.png";
+import portraitMobile from "../../data/portrait-mobile.png";
+import portraitDesktop from "../../data/portrait-desktop.png";
 
 // Content Fetching: List four most recent projects
 const locale = i18n.getLocaleFromUrl(Astro.url);
@@ -59,12 +60,13 @@ const cvFile = "alejandro_fernandez_cv-en.pdf";
           </div>
 
           <figure class="portrait">
-            <Image
-              src={portrait}
+            <PortraitPicture
+              mobileSrc={portraitMobile}
+              desktopSrc={portraitDesktop}
               alt="Alejandro Fernández smiling in a grey polo shirt"
               loading="eager"
-              widths={[256, 340, 456, 637, 936, 1170, 1368, 1460]}
-              sizes="(min-width: 1400px) 456px, (min-width: 900px) calc(35.63vw - 36px), (min-width: 800px) calc(83.75vw - 460px), calc(100vw - 48px)"
+              widths={[300, 370, 456, 555, 684, 740, 833, 950, 1140, 1368]}
+              sizes="(min-width: 1328px) 456px, (min-width: 50em) calc((100vw - 11.75rem)*0.4), calc(100vw - 3rem)"
             />
           </figure>
         </div>
@@ -155,12 +157,12 @@ const cvFile = "alejandro_fernandez_cv-en.pdf";
     box-shadow: var(--shadow-sm);
   }
 
-  .hero img {
+  .hero :global(img) {
     aspect-ratio: 5 / 4;
     object-fit: cover;
     object-position: top;
     display: block;
-    border-radius: inherit;
+    border-radius: 1.5rem;
   }
 
   @media (min-width: 50em) {
@@ -198,7 +200,7 @@ const cvFile = "alejandro_fernandez_cv-en.pdf";
       gap: 0.5rem;
     }
 
-    .hero img {
+    .hero :global(img) {
       aspect-ratio: 3 / 4;
     }
   }
