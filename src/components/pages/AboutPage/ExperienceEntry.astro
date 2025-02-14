@@ -1,0 +1,59 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+import MarkdownLayout from "@layouts/MarkdownLayout.astro";
+
+interface Props {
+  entry: CollectionEntry<"education"> | CollectionEntry<"experience">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<li>
+  <div class="entry-head">
+    <span class="entry-title">{entry.data.title}</span>
+    <span class="entry-details">
+      {entry.data.span}, {entry.data.place}
+    </span>
+  </div>
+  <MarkdownLayout class="entry-description">
+    <Content />
+  </MarkdownLayout>
+</li>
+
+<style>
+  li:not(:last-child) {
+    margin-bottom: 2rem; /* Spacing between each entry */
+  }
+
+  .entry-head {
+    margin-bottom: 0.5rem; /* Spacing between the head and description */
+  }
+
+  .entry-title {
+    display: block;
+    font-weight: bold;
+    color: var(--md-sys-color-primary);
+  }
+
+  .entry-details {
+    display: block;
+    color: var(--md-sys-color-secondary);
+    font-size: var(--text-sm);
+    /* font-weight: bold; */
+  }
+
+  .entry-description {
+    margin-top: 0.5rem; /* Spacing between the head and description */
+    font-size: var(--text-sm);
+  }
+
+  @media (min-width: 50em) {
+    .entry-details,
+    .entry-description {
+      font-size: var(--text-md);
+    }
+  }
+</style>

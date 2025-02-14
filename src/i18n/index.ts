@@ -1,9 +1,11 @@
-export { locales, defaultLocale, fallbacks } from "./config";
+export { locales, defaultLocale } from "./config";
 
 export type { Locale } from "./types";
 
-export { ui } from "./ui";
+export * from "./collections";
+
+export * from "./translation";
 
 export * from "./utils";
 
-export * from "./collections";
+export { getRelativeLocaleUrl } from "astro:i18n";

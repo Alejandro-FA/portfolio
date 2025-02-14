@@ -1,18 +1,23 @@
 ---
-import Icon from "./Icon.astro";
+import Icon from "@components/Icon.astro";
+
+import * as i18n from "@i18n";
+
 const currentYear = new Date().getFullYear();
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
 ---
 
 <footer>
   <div class="group">
     <p>
-      Designed & Developed with <a href="https://astro.build/">Astro</a>
+      {t.common.footer.astroCredits + " "}
+      <a href="https://astro.build/">Astro</a>
       <Icon icon="rocket-launch" size="1.2em" />
     </p>
     <p>
-      Background images provided by <a href="https://loading.io/background/"
-        >loading.io</a
-      >
+      {t.common.footer.loadingIOCredits + " "}
+      <a href="https://loading.io/background/">loading.io</a>
     </p>
     <p>&copy; {currentYear} Alejandro Fernández Alburquerque</p>
   </div>

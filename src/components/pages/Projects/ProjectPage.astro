@@ -1,75 +1,91 @@
 ---
 import { Image } from "astro:assets";
-import { type CollectionEntry } from "astro:content";
-import { getRelativeLocaleUrl } from "astro:i18n";
-import * as i18n from "../i18n";
+import { render, type CollectionEntry } from "astro:content";
 
-import MarkdownLayout from "../layouts/MarkdownLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import MarkdownLayout from "@layouts/MarkdownLayout.astro";
 
-import Hero from "../components/Hero.astro";
-import Icon from "../components/Icon.astro";
-import Pill from "../components/Pill.astro";
+import Hero from "@components/layout/Hero.astro";
+import Icon from "@components/Icon.astro";
+import Pill from "@components/Pill.astro";
+import ContactCTA from "@components/layout/ContactCTA.astro";
+import MarkdownImage from "@components/markdown/MarkdownImage.astro";
+import ScrollableTable from "@components/markdown/ScrollableTable.astro";
+
+import * as i18n from "@i18n";
 
 interface Props {
-  frontmatter: CollectionEntry<"projects">["data"];
+  entry: CollectionEntry<"projects">;
 }
 
-const locale = i18n.getLocaleFromUrl(Astro.url);
-const projectsUrl = getRelativeLocaleUrl(locale, "/projects/");
+const { entry } = Astro.props;
 
-const { frontmatter } = Astro.props;
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+const projectsUrl = i18n.getRelativeLocaleUrl(locale, t.routes.projects);
+
+const { Content } = await render(entry);
+const frontmatter = entry.data;
 ---
 
-<main class="wrapper stack gap-2">
-  <nav class="wrapper row" aria-labelledby="project-navigation">
-    <a class="back-link row gap-1" href={projectsUrl}
-      ><Icon icon="arrow-left" /> Projects</a
-    >
-    {
-      frontmatter.github && (
-        <a
-          class="github-link row gap-2"
-          href={frontmatter.github}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon viewBox="0 0 512 512" icon="github-logo" /> View on GitHub
-        </a>
-      )
-    }
-  </nav>
-  <article>
-    <Hero title={frontmatter.title} align="start">
-      <div class="details">
-        <div class="tags">
-          {frontmatter.tags.map((t: string) => <Pill>{t}</Pill>)}
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <main class="wrapper stack gap-2">
+    <nav class="wrapper row" aria-labelledby="project-navigation">
+      <a class="back-link row gap-1" href={projectsUrl}
+        ><Icon icon="arrow-left" /> {t.common.nav.projects}</a
+      >
+      {
+        frontmatter.github && (
+          <a
+            class="github-link row gap-2"
+            href={frontmatter.github}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon viewBox="0 0 512 512" icon="github-logo" />{" "}
+            {t.projects.githubLink}
+          </a>
+        )
+      }
+    </nav>
+    <article>
+      <Hero title={frontmatter.title} align="start">
+        <div class="details">
+          <div class="tags">
+            {frontmatter.tags.map((t: string) => <Pill>{t}</Pill>)}
+          </div>
+          <p class="description">{frontmatter.description}</p>
         </div>
-        <p class="description">{frontmatter.description}</p>
-      </div>
-    </Hero>
-    <MarkdownLayout>
-      <figure id="thumbnail">
-        <Image
-          src={frontmatter.thumbnail}
-          alt={frontmatter.thumbnailAlt || ""}
-          loading="eager"
-          sizes="(min-width: 843px) 796px, calc(100vw - 3rem)"
-          widths={[
-            300, 380, 570, 760, 796, 855, 950, 1140, 1194, 1592, 1791, 1990,
-            2388,
-          ]}
-        />
-        <figcaption>{frontmatter.thumbnailAlt}</figcaption>
-      </figure>
-      <hr id="thumbnail-divider" />
-      <slot />
-    </MarkdownLayout>
-  </article>
-</main>
+      </Hero>
+      <MarkdownLayout class="content">
+        <figure id="thumbnail">
+          <Image
+            src={frontmatter.thumbnail}
+            alt={frontmatter.thumbnailAlt || ""}
+            loading="eager"
+            sizes="(min-width: 843px) 796px, calc(100vw - 3rem)"
+            widths={[
+              300, 380, 570, 760, 796, 855, 950, 1140, 1194, 1592, 1791, 1990,
+              2388,
+            ]}
+          />
+          <figcaption>{frontmatter.thumbnailAlt}</figcaption>
+        </figure>
+        <hr id="thumbnail-divider" />
+        <Content components={{ img: MarkdownImage, ScrollableTable }} />
+      </MarkdownLayout>
+    </article>
+  </main>
+  <ContactCTA />
+</BaseLayout>
 
 <style>
   main {
     margin-bottom: 5rem;
+  }
+
+  :global(.content) {
+    max-width: 65ch;
   }
 
   header {

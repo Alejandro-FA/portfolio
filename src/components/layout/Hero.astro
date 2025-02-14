@@ -2,16 +2,26 @@
 interface Props {
   title: string;
   tagline?: string | undefined;
+  englishWarning?: string | undefined;
   align?: "start" | "center" | undefined;
 }
 
-const { align = "center", tagline, title } = Astro.props;
+const { align = "center", tagline, englishWarning, title } = Astro.props;
 ---
 
 <header class:list={["hero stack gap-4", align]}>
   <div class="stack gap-2">
     <h1 class="title">{title}</h1>
-    {tagline && <p class="tagline">{tagline}</p>}
+    {
+      tagline && (
+        <p class="tagline">
+          {tagline}
+          {englishWarning && (
+            <strong class="translation-warning"> {englishWarning}</strong>
+          )}
+        </p>
+      )
+    }
   </div>
   <slot />
 </header>
@@ -31,6 +41,10 @@ const { align = "center", tagline, title } = Astro.props;
   .title {
     font-size: var(--text-3xl);
     color: var(--md-sys-color-on-surface);
+  }
+
+  .translation-warning {
+    color: var(--md-sys-color-error);
   }
 
   @media (min-width: 50em) {

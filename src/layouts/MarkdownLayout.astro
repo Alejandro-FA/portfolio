@@ -1,8 +1,10 @@
 ---
 import "@fontsource-variable/jetbrains-mono";
+
+const { class: className, ...rest } = Astro.props;
 ---
 
-<div class="markdown-content">
+<div class:list={["markdown-content", className]} {...rest}>
   <slot />
 </div>
 
@@ -13,7 +15,6 @@ import "@fontsource-variable/jetbrains-mono";
   }
 
   .markdown-content {
-    max-width: 65ch;
     margin-inline: auto;
     font-size: var(--text-md);
     --md-margin: 1rem;
@@ -39,68 +40,65 @@ import "@fontsource-variable/jetbrains-mono";
 
     h2 {
       font-size: var(--text-2xl);
-      margin-top: 3rem;
       counter-reset: subheading-1;
+      margin-top: 3rem;
+
+      ::before {
+        margin-right: 0.75rem;
+        content: counter(heading) ". ";
+        counter-increment: heading;
+      }
     }
 
     h3 {
-      font-size: var(--text-xl);
-      margin-top: 2rem;
+      font-size: var(--text-lg);
       counter-reset: subheading-2;
+      margin-top: 2rem;
+
+      ::before {
+        margin-right: 0.75rem;
+        content: counter(heading) "." counter(subheading-1) " ";
+        counter-increment: subheading-1;
+      }
     }
 
     h4 {
-      font-size: var(--text-lg);
-      margin-top: 1.5rem;
+      font-size: var(--text-md);
       counter-reset: subheading-3;
+      margin-top: 1.5rem;
+
+      ::before {
+        margin-right: 0.75rem;
+        content: counter(heading) "." counter(subheading-1) "."
+          counter(subheading-2) " ";
+        counter-increment: subheading-2;
+      }
     }
 
     h5 {
-      font-size: var(--text-md);
-      margin-top: var(--md-margin);
+      font-size: var(--text-sm);
       counter-reset: subheading-4;
+      margin-top: var(--md-margin);
+
+      ::before {
+        margin-right: 0.75rem;
+        content: counter(heading) "." counter(subheading-1) "."
+          counter(subheading-2) "." counter(subheading-3) " ";
+        counter-increment: subheading-3;
+      }
     }
 
     h6 {
       font-size: var(--text-sm);
       margin-top: var(--md-margin);
-    }
 
-    h2::before,
-    h3::before,
-    h4::before,
-    h5::before,
-    h6::before {
-      margin-right: 0.75rem;
-    }
-
-    h2::before {
-      content: counter(heading) ". ";
-      counter-increment: heading;
-    }
-
-    h3::before {
-      content: counter(heading) "." counter(subheading-1) " ";
-      counter-increment: subheading-1;
-    }
-
-    h4::before {
-      content: counter(heading) "." counter(subheading-1) "."
-        counter(subheading-2) " ";
-      counter-increment: subheading-2;
-    }
-
-    h5::before {
-      content: counter(heading) "." counter(subheading-1) "."
-        counter(subheading-2) "." counter(subheading-3) " ";
-      counter-increment: subheading-3;
-    }
-
-    h6::before {
-      content: counter(heading) "." counter(subheading-1) "."
-        counter(subheading-2) "." counter(subheading-3) "."
-        counter(subheading-4) " ";
-      counter-increment: subheading-4;
+      ::before {
+        margin-right: 0.75rem;
+        content: counter(heading) "." counter(subheading-1) "."
+          counter(subheading-2) "." counter(subheading-3) "."
+          counter(subheading-4) " ";
+        counter-increment: subheading-4;
+      }
     }
 
     /* Disable automatic numbering for the abstract and references sections */
@@ -168,18 +166,8 @@ import "@fontsource-variable/jetbrains-mono";
       counter-increment: figure;
     }
 
-    p {
+    p:not(:first-child) {
       margin-top: var(--md-margin);
-    }
-
-    p + p,
-    ol + p,
-    ul + p,
-    table + p,
-    figure + p,
-    img + p,
-    pre + p {
-      text-indent: 1.5rem;
     }
 
     li {
@@ -309,15 +297,15 @@ import "@fontsource-variable/jetbrains-mono";
       }
 
       h3 {
-        font-size: var(--text-2xl);
-      }
-
-      h4 {
         font-size: var(--text-xl);
       }
 
-      h5 {
+      h4 {
         font-size: var(--text-lg);
+      }
+
+      h5 {
+        font-size: var(--text-md);
       }
 
       h6 {

@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About"
+  },
+  "footer": {
+    "astroCredits": "Designed & Developed with",
+    "loadingIOCredits": "Background images provided by"
+  },
+  "contactCTA": {
+    "heading": "Interested in working together?",
+    "downloadCV": "Download CV"
+  },
+  "head": {
+    "title": "Alejandro Fernández Alburquerque",
+    "description": "Personal website of Alejandro Fernández Alburquerque"
+  },
+  "notTranslatedWarning": ""
+}

@@ -1,14 +1,18 @@
 ---
-import CallToAction from "./CallToAction.astro";
-import Icon from "./Icon.astro";
+import CallToAction from "@components/CallToAction.astro";
+import Icon from "@components/Icon.astro";
+
+import * as i18n from "@i18n";
 
 const cvFile = "alejandro_fernandez_cv-en.pdf";
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
 ---
 
 <aside>
-  <h2>Interested in working together?</h2>
+  <h2>{t.common.contactCTA.heading}</h2>
   <CallToAction href={`/r2/${cvFile}`} download={cvFile}>
-    Download CV
+    {t.common.contactCTA.downloadCV}
     <Icon icon="file-arrow-down" size="1.2em" />
   </CallToAction>
 </aside>

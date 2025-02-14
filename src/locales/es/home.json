@@ -1,0 +1,28 @@
+{
+  "hero": {
+    "title": "Hola, soy Alejandro Fernández",
+    "tagline": "Soy un recién graduado en Ingeniería Informática de Barcelona, España.",
+    "role1": "Desarollador de Software",
+    "role2": "Ingeniero de Backend"
+  },
+  "portraitAlt": "Alejandro Fernández sonriendo, vestido en un polo gris",
+  "skills": {
+    "codingEnthusiast": {
+      "heading": "Programador",
+      "description": "Soy un apasionado de la programación. Hay pocas cosas más satisfactorias que resolver problemas complejos y dar vida a ideas descabelladas con código."
+    },
+    "hardWorker": {
+      "heading": "Trabajador",
+      "description": "Mi compromiso con la ingeniería informática me ha llevado a destacar académicamente, acabando los estudios con 20 matrículas de honor."
+    },
+    "teamPlayer": {
+      "heading": "Colaborador",
+      "description": "Participar en concursos de programación por equipos ha impulsado mis habilidades de colaboración y comunicación efectiva con mis compañeros."
+    }
+  },
+  "selectedProjects": {
+    "heading": "Proyectos destacados",
+    "description": "Echa un vistazo a algunos de los interesantes proyectos en los que he trabajado durante mis estudios.",
+    "viewAll": "Ver Todos"
+  }
+}

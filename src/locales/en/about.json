@@ -1,0 +1,14 @@
+{
+  "head": {
+    "title": "About | Alejandro Fernández Alburquerque",
+    "description": "About Alejandro Fernández Alburquerque"
+  },
+  "hero": {
+    "title": "About",
+    "tagline": "Thanks for stopping by. Read below to learn more about myself and my background.",
+    "imgAlt": "Hiking bags in the mountains, from a trip to the Pyrenees"
+  },
+  "background": "Background",
+  "education": "Education",
+  "experience": "Experience"
+}

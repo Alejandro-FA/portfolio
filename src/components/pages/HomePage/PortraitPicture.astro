@@ -1,0 +1,88 @@
+---
+import { getImage } from "astro:assets";
+
+import * as i18n from "@i18n";
+import portraitMobile from "@data/portrait-mobile.png";
+import portraitDesktop from "@data/portrait-desktop.png";
+
+const { class: className, ...rest } = Astro.props;
+
+const loading = "eager";
+const widths = [300, 370, 412, 456, 555, 684, 740, 833, 950, 1140, 1368];
+const sizes =
+  "(min-width: 1328px) 456px, (min-width: 50em) calc((100vw - 11.75rem)*0.4), calc(min(100vw - 3rem, 412px))";
+
+const mobileImg = await getImage({
+  src: portraitMobile,
+  loading: loading,
+  widths: widths, // TODO: Optimize widths for mobile version
+  sizes: sizes,
+});
+
+const desktopImg = await getImage({
+  src: portraitDesktop,
+  loading: loading,
+  widths: widths, // TODO: Optimize widths for desktop version
+  sizes: sizes,
+});
+
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+---
+
+<figure class={className} {...rest}>
+  <picture>
+    <source
+      media="(min-width: 50em)"
+      srcset={desktopImg.srcSet.attribute}
+      sizes={sizes}
+      width={portraitDesktop.width}
+      height={portraitDesktop.height}
+    />
+    <img
+      src={mobileImg.src}
+      srcset={mobileImg.srcSet.attribute}
+      alt={t.home.portraitAlt}
+      sizes={sizes}
+      width={portraitMobile.width}
+      height={portraitMobile.height}
+    />
+  </picture>
+</figure>
+
+<style>
+  figure {
+    background-color: var(--surface-container-color);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    max-width: 412px;
+  }
+
+  img {
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    border-radius: 1.5rem;
+  }
+
+  @media (min-width: 50em) {
+    figure {
+      max-width: none;
+    }
+
+    img {
+      aspect-ratio: 3 / 4;
+    }
+  }
+
+  @media (min-width: 60em) {
+    figure {
+      border-radius: 4.5rem;
+    }
+
+    img {
+      border-radius: 4.5rem;
+    }
+  }
+</style>

@@ -1,9 +1,10 @@
+import path from "path";
 import {
   getCollection,
   type CollectionKey,
   type CollectionEntry,
 } from "astro:content";
-import path from "path";
+
 import type { Locale } from "./types";
 
 export async function getLocalizedCollection<T extends CollectionKey>(
@@ -17,6 +18,15 @@ export async function getLocalizedCollection<T extends CollectionKey>(
       ...entry,
       id: _removeLocaleFromId(entry.id),
     }));
+}
+
+export async function getLocalizedEntry<T extends CollectionKey>(
+  locale: Locale,
+  collection: T,
+  id: string,
+): Promise<CollectionEntry<T> | undefined> {
+  const entries = await getLocalizedCollection(locale, collection);
+  return entries.find((entry) => entry.id === id);
 }
 
 export function getLocalizedCollectionPaths(

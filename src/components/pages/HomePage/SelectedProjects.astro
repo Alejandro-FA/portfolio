@@ -1,0 +1,108 @@
+---
+import CallToAction from "@components/CallToAction.astro";
+import Grid from "@components/Grid.astro";
+import Icon from "@components/Icon.astro";
+import ProjectPreview from "@components/pages/Projects/ProjectPreview.astro";
+
+import * as i18n from "@i18n";
+
+// Content Fetching: List four most recent projects
+const projects = (
+  await i18n.getLocalizedCollection(i18n.defaultLocale, "projects")
+)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 4);
+
+// Compute the URL for the projects page
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+const projectsUrl = i18n.getRelativeLocaleUrl(locale, t.routes.projects);
+---
+
+<section class="section with-cta">
+  <header class="section-header stack gap-2 lg:gap-4">
+    <h3>{t.home.selectedProjects.heading}</h3>
+    <p>
+      {t.home.selectedProjects.description}{" "}
+      <strong class="translation-warning">
+        {t.common.notTranslatedWarning}
+      </strong>
+    </p>
+  </header>
+
+  <div class="cta">
+    <CallToAction href={projectsUrl}>
+      {t.home.selectedProjects.viewAll}
+      <Icon icon="arrow-right" size="1.2em" />
+    </CallToAction>
+  </div>
+
+  <div class="gallery">
+    <Grid variant="offset">
+      {
+        projects.map((project) => (
+          <li>
+            <ProjectPreview project={project} />
+          </li>
+        ))
+      }
+    </Grid>
+  </div>
+</section>
+
+<style>
+  .section {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .section-header {
+    justify-self: center;
+    text-align: center;
+    max-width: 50ch;
+    font-size: var(--text-md);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .section-header h3 {
+    font-size: var(--text-2xl);
+  }
+
+  .translation-warning {
+    color: var(--md-sys-color-error);
+  }
+
+  @media (min-width: 50em) {
+    .section {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-areas: "header header header header" "gallery gallery gallery gallery";
+      gap: 5rem;
+    }
+
+    .section.with-cta {
+      grid-template-areas: "header header header cta" "gallery gallery gallery gallery";
+    }
+
+    .section-header {
+      grid-area: header;
+      font-size: var(--text-lg);
+    }
+
+    .section-header h3 {
+      font-size: var(--text-4xl);
+    }
+
+    .with-cta .section-header {
+      justify-self: flex-start;
+      text-align: left;
+    }
+
+    .gallery {
+      grid-area: gallery;
+    }
+
+    .cta {
+      grid-area: cta;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "about": "Sobre mí"
+  },
+  "footer": {
+    "astroCredits": "Diseñado y Desarollado con",
+    "loadingIOCredits": "Imágenes de fondo obtenidas de"
+  },
+  "contactCTA": {
+    "heading": "¿Te gustaría trabajar conmigo?",
+    "downloadCV": "Descargar CV"
+  },
+  "head": {
+    "title": "Alejandro Fernández Alburquerque",
+    "description": "Página personal de Alejandro Fernández Alburquerque"
+  },
+  "notTranslatedWarning": "Solo disponible en inglés."
+}

@@ -1,0 +1,14 @@
+{
+  "head": {
+    "title": "Sobre mí | Alejandro Fernández Alburquerque",
+    "description": "Sobre Alejandro Fernández Alburquerque"
+  },
+  "hero": {
+    "title": "Sobre mí",
+    "tagline": "Gracias por visitar mi página. Si quieres saber más sobre mí y mi experiencia estás en el lugar adecuado",
+    "imgAlt": "Mochilas de excursión apoyadas en el suelo de un valle de los Pirineos"
+  },
+  "background": "Quién soy",
+  "education": "Formación",
+  "experience": "Experiencia"
+}

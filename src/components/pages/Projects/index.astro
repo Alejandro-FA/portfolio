@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import ContactCTA from "@components/layout/ContactCTA.astro";
+import Hero from "@components/layout/Hero.astro";
+import Grid from "@components/Grid.astro";
+import ProjectPreview from "./ProjectPreview.astro";
+
+import * as i18n from "@i18n";
+
+const eagerlyLoadedProjects = 4;
+
+const projects = (
+  await i18n.getLocalizedCollection(i18n.defaultLocale, "projects")
+).sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+---
+
+<BaseLayout
+  title={t.projects.head.title}
+  description={t.projects.head.description}
+>
+  <main class="wrapper stack gap-8">
+    <Hero
+      title={t.projects.hero.title}
+      tagline={t.projects.hero.tagline}
+      englishWarning={t.common.notTranslatedWarning}
+      align="start"
+    />
+    <Grid variant="offset">
+      {
+        projects.map((project, idx) => (
+          <li>
+            <ProjectPreview
+              project={project}
+              loading={idx < eagerlyLoadedProjects ? "eager" : "lazy"}
+            />
+          </li>
+        ))
+      }
+    </Grid>
+  </main>
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  main {
+    margin-bottom: 5rem;
+  }
+</style>

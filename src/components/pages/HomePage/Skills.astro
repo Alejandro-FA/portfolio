@@ -1,5 +1,10 @@
 ---
-import Icon from "./Icon.astro";
+import Icon from "@components/Icon.astro";
+
+import * as i18n from "@i18n";
+
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
 ---
 
 <section class="box skills">
@@ -10,11 +15,8 @@ import Icon from "./Icon.astro";
       size="2.5rem"
       gradient
     />
-    <h2>Coding enthusiast</h2>
-    <p>
-      Programming is my passion. Few things are more satisfying than solving
-      complex problems and bringing ideas to life through code.
-    </p>
+    <h2>{t.home.skills.codingEnthusiast.heading}</h2>
+    <p>{t.home.skills.codingEnthusiast.description}</p>
   </div>
   <div class="stack gap-2 lg:gap-4">
     <Icon
@@ -23,11 +25,8 @@ import Icon from "./Icon.astro";
       size="2.5rem"
       gradient
     />
-    <h2>Hard worker</h2>
-    <p>
-      My commitment to computer engineering has driven me to excel academically,
-      completing 20 subjects with honors during my studies.
-    </p>
+    <h2>{t.home.skills.hardWorker.heading}</h2>
+    <p>{t.home.skills.hardWorker.description}</p>
   </div>
   <div class="stack gap-2 lg:gap-4">
     <Icon
@@ -36,11 +35,8 @@ import Icon from "./Icon.astro";
       size="2.5rem"
       gradient
     />
-    <h2>Team player</h2>
-    <p>
-      Participating in team-based programming contests has sharpened my ability
-      to collaborate and communicate effectively with fellow developers.
-    </p>
+    <h2>{t.home.skills.teamPlayer.heading}</h2>
+    <p>{t.home.skills.teamPlayer.description}</p>
   </div>
 </section>
 
@@ -73,18 +69,20 @@ import Icon from "./Icon.astro";
       padding: 2.5rem;
     }
 
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5rem;
-    }
-
     .skills h2 {
       font-size: var(--text-2xl);
     }
 
     .skills p {
       font-size: var(--text-md);
+    }
+  }
+
+  @media (min-width: 60em) {
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5rem;
     }
   }
 </style>

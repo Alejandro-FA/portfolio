@@ -3,8 +3,7 @@ import { defineCollection, z } from "astro:content";
 
 export const collections = {
   projects: defineCollection({
-    // Load Markdown files in the src/content/projects directory.
-    loader: glob({ base: "./src/data/projects", pattern: "**/*.{md,mdx}" }),
+    loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
     schema: ({ image }) =>
       z.object({
         title: z.string(),
@@ -16,5 +15,30 @@ export const collections = {
         github: z.string().optional(),
         bibliography: z.array(z.string()).optional(),
       }),
+  }),
+  misc: defineCollection({
+    loader: glob({ base: "./src/content/misc", pattern: "**/*.{md,mdx}" }),
+    schema: z.object({}),
+  }),
+  education: defineCollection({
+    loader: glob({ base: "./src/content/education", pattern: "**/*.{md,mdx}" }),
+    schema: z.object({
+      title: z.string(),
+      startDate: z.coerce.date(),
+      span: z.string(),
+      place: z.string(),
+    }),
+  }),
+  experience: defineCollection({
+    loader: glob({
+      base: "./src/content/experience",
+      pattern: "**/*.{md,mdx}",
+    }),
+    schema: z.object({
+      title: z.string(),
+      startDate: z.coerce.date(),
+      span: z.string(),
+      place: z.string(),
+    }),
   }),
 };

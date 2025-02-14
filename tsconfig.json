@@ -1,5 +1,17 @@
 {
   "extends": "astro/tsconfigs/strictest",
   "include": [".astro/types.d.ts", "src/**/*", "*.config.mjs"],
-  "exclude": ["functions/**/*", "dist"]
+  "exclude": ["functions/**/*", "dist"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@content/*": ["content/*"],
+      "@data/*": ["data/*"],
+      "@layouts/*": ["layouts/*"],
+      "@styles/*": ["styles/*"],
+      "@i18n": ["i18n"],
+      "@locales/*": ["locales/*"]
+    }
+  }
 }

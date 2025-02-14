@@ -1,24 +1,25 @@
 ---
-// Fonts
 import "@fontsource-variable/rubik";
 import "@fontsource-variable/public-sans";
 import publicSansWoff2 from "@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url";
 import rubikWoff2 from "@fontsource-variable/rubik/files/rubik-latin-wght-normal.woff2?url";
 
-// Styles
-import "../styles/global.css";
-import "../styles/light.css";
-import "../styles/dark.css";
+import "@styles/global.css";
+import "@styles/light.css";
+import "@styles/dark.css";
+
+import * as i18n from "@i18n";
 
 interface Props {
   title?: string | undefined;
   description?: string | undefined;
 }
 
-const {
-  title = "Alejandro Fernández Alburquerque",
-  description = "The personal site of Alejandro Fernández Alburquerque",
-} = Astro.props;
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+
+const { title = t.common.head.title, description = t.common.head.description } =
+  Astro.props;
 ---
 
 <meta charset="UTF-8" />

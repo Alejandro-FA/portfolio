@@ -1,0 +1,124 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+import MarkdownLayout from "@layouts/MarkdownLayout.astro";
+
+import ContactCTA from "@components/layout/ContactCTA.astro";
+import Hero from "@components/layout/Hero.astro";
+import ExperienceEntry from "./ExperienceEntry.astro";
+
+import * as i18n from "@i18n";
+import coverImage from "@data/hiking_bags.jpg";
+
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+
+const educationEntries = (
+  await i18n.getLocalizedCollection(locale, "education")
+).sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+
+const experienceEntries = (
+  await i18n.getLocalizedCollection(locale, "experience")
+).sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf());
+
+const background = await i18n.getLocalizedEntry(locale, "misc", "background");
+if (!background) {
+  throw new Error("Background content not found!");
+}
+const { Content } = await render(background);
+---
+
+<BaseLayout title={t.about.head.title} description={t.about.head.description}>
+  <main class="wrapper about">
+    <Hero title={t.about.hero.title} tagline={t.about.hero.tagline}>
+      <Image
+        src={coverImage}
+        alt={t.about.hero.imgAlt}
+        loading="eager"
+        widths={[
+          300, 380, 570, 640, 768, 855, 950, 1152, 1536, 1728, 1920, 2304,
+        ]}
+        sizes="(min-width: 1328px) 768px, (min-width: 50em) calc((100vw - 3rem)*0.6), calc(100vw - 3rem)"
+      />
+    </Hero>
+
+    <section>
+      <h2 class="section-title">{t.about.background}</h2>
+      <MarkdownLayout class="content">
+        <Content />
+      </MarkdownLayout>
+    </section>
+    <section>
+      <h2 class="section-title">{t.about.education}</h2>
+      <ul class="content">
+        {educationEntries.map((entry) => <ExperienceEntry entry={entry} />)}
+      </ul>
+    </section>
+    <section>
+      <h2 class="section-title">{t.about.experience}</h2>
+      <ul class="content">
+        {experienceEntries.map((entry) => <ExperienceEntry entry={entry} />)}
+      </ul>
+    </section>
+  </main>
+  <ContactCTA />
+</BaseLayout>
+
+<style>
+  main {
+    margin-bottom: 5rem;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  img {
+    margin-top: 1.5rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: var(--text-md);
+  }
+
+  .section-title {
+    grid-column-start: 1;
+    font-size: var(--text-xl);
+    color: var(--md-sys-color-secondary);
+  }
+
+  .content {
+    grid-column: 2 / 4;
+  }
+
+  ul.content {
+    list-style-type: none; /* Remove list item dots */
+    padding: 0;
+  }
+
+  @media (min-width: 50em) {
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 60% 1fr;
+    }
+
+    .about > :global(:first-child) {
+      grid-column-start: 2;
+    }
+
+    section {
+      display: contents;
+      font-size: var(--text-lg);
+    }
+  }
+</style>

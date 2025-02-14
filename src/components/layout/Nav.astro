@@ -1,23 +1,25 @@
 ---
-import * as i18n from "../i18n";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import Icon from "@components/Icon.astro";
+import ThemeToggle from "@components/ThemeToggle.astro";
 
-import Icon from "./Icon.astro";
-import ThemeToggle from "./ThemeToggle.astro";
-import type { iconPaths } from "./IconPaths";
+import * as i18n from "@i18n";
+import type { iconPaths } from "@data/IconPaths";
 
 /** i18n utilities */
 const locale = i18n.getLocaleFromUrl(Astro.url);
-const t = i18n.translator(locale);
+const t = i18n.getTranslations(locale);
 
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
-  { label: t("nav.home"), href: getRelativeLocaleUrl(locale, "/") },
+  { label: t.common.nav.home, href: i18n.getRelativeLocaleUrl(locale, "/") },
   {
-    label: t("nav.projects"),
-    href: getRelativeLocaleUrl(locale, "/projects/"),
+    label: t.common.nav.projects,
+    href: i18n.getRelativeLocaleUrl(locale, t.routes.projects),
   },
-  { label: t("nav.about"), href: getRelativeLocaleUrl(locale, "/about/") },
+  {
+    label: t.common.nav.about,
+    href: i18n.getRelativeLocaleUrl(locale, t.routes.about),
+  },
 ];
 
 /** Icon links to social media — edit these with links to your profiles! */
@@ -56,7 +58,7 @@ const iconLinks: {
 
 <nav aria-labelledby="main-navigation">
   <div class="menu-header">
-    <a href={getRelativeLocaleUrl(locale, "/")} class="site-title">
+    <a href={i18n.getRelativeLocaleUrl(locale, "/")} class="site-title">
       <Icon
         icon="terminal-window"
         color="var(--md-sys-color-primary)"
@@ -86,7 +88,7 @@ const iconLinks: {
                 {
                   active:
                     Astro.url.pathname === href ||
-                    (href !== getRelativeLocaleUrl(locale, "/") &&
+                    (href !== i18n.getRelativeLocaleUrl(locale, "/") &&
                       Astro.url.pathname.startsWith(href)),
                 },
               ]}
@@ -125,7 +127,7 @@ const iconLinks: {
                 {
                   active:
                     Astro.url.pathname === href ||
-                    (href !== getRelativeLocaleUrl(locale, "/") &&
+                    (href !== i18n.getRelativeLocaleUrl(locale, "/") &&
                       Astro.url.pathname.startsWith(href)),
                 },
               ]}

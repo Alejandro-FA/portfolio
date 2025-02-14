@@ -1,15 +1,17 @@
 // @ts-check
+import * as process from "node:process";
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { locales, defaultLocale, fallbacks } from "./src/i18n/config";
-import * as process from "node:process";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+
 import remarkMath from "remark-math";
 import sectionize from "remark-sectionize";
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeMathjax from "rehype-mathjax/chtml";
 import rehypeCitation from "rehype-citation";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+
+import { locales, defaultLocale } from "./src/i18n/config";
 
 const siteUrl = process.env.SITE ?? "https://alejandrofernandez.dev";
 
@@ -33,13 +35,12 @@ export default defineConfig({
       rehypeHeadingIds,
       [rehypeAutolinkHeadings, { behavior: "wrap" }],
       [rehypeMathjax, { chtml: { fontURL: "/fonts/" } }],
-      [rehypeCitation, { path: "src/data/projects", linkCitations: true }],
+      [rehypeCitation, { path: "src/content/projects", linkCitations: true }],
     ],
   },
   i18n: {
     defaultLocale: defaultLocale,
     locales: [...locales],
-    fallback: fallbacks,
     routing: {
       prefixDefaultLocale: true,
     },

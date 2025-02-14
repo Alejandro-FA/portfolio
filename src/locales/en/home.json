@@ -1,0 +1,28 @@
+{
+  "hero": {
+    "title": "Hello, I'm Alejandro Fernández",
+    "tagline": "I am a recently-graduated Computer Engineer from Barcelona, Spain.",
+    "role1": "Software Developer",
+    "role2": "Backend Engineer"
+  },
+  "portraitAlt": "Alejandro Fernández smiling in a grey polo shirt",
+  "skills": {
+    "codingEnthusiast": {
+      "heading": "Programmer",
+      "description": "Programming is my passion. Few things are more satisfying than solving complex problems and bringing ideas to life through code."
+    },
+    "hardWorker": {
+      "heading": "Hard worker",
+      "description": "My commitment to computer engineering has driven me to excel academically, completing 20 subjects with honors during my studies."
+    },
+    "teamPlayer": {
+      "heading": "Team player",
+      "description": "Participating in team-based programming contests has sharpened my ability to collaborate and communicate effectively with fellow developers."
+    }
+  },
+  "selectedProjects": {
+    "heading": "Selected Projects",
+    "description": "Take a look below at some interesting projects that I worked on during my studies.",
+    "viewAll": "View All"
+  }
+}

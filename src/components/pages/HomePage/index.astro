@@ -1,0 +1,131 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import CallToAction from "@components/CallToAction.astro";
+import Hero from "@components/layout/Hero.astro";
+import Icon from "@components/Icon.astro";
+import Pill from "@components/Pill.astro";
+import ContactCTA from "@components/layout/ContactCTA.astro";
+import PortraitPicture from "./PortraitPicture.astro";
+import Skills from "./Skills.astro";
+import SelectedProjects from "./SelectedProjects.astro";
+
+import * as i18n from "@i18n";
+
+const locale = i18n.getLocaleFromUrl(Astro.url);
+const t = i18n.getTranslations(locale);
+
+// Define the CV file name
+const cvFile = "alejandro_fernandez_cv-en.pdf";
+---
+
+<BaseLayout>
+  <div class="stack gap-20 lg:gap-30">
+    <main class="wrapper stack gap-20 lg:gap-30">
+      <section class="stack gap-8 lg:gap-20">
+        <div class="hero">
+          <div class="hero-title">
+            <Hero
+              title={t.home.hero.title}
+              tagline={t.home.hero.tagline}
+              align="start"
+            >
+              <div class="roles">
+                <Pill
+                  ><Icon icon="code" size="1.33em" /> {t.home.hero.role1}</Pill
+                >
+                <Pill><Icon icon="ai" size="1.33em" /> {t.home.hero.role2}</Pill
+                >
+              </div>
+            </Hero>
+          </div>
+
+          <div class="cv-download">
+            <CallToAction href={`/r2/${cvFile}`} download={cvFile} small={true}>
+              {t.common.contactCTA.downloadCV}
+              <Icon icon="file-arrow-down" size="1.33em" />
+            </CallToAction>
+          </div>
+
+          <PortraitPicture class="portrait" />
+        </div>
+
+        <Skills />
+      </section>
+
+      <SelectedProjects />
+    </main>
+    <ContactCTA />
+  </div>
+
+  <style>
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .roles {
+      display: none;
+    }
+
+    .cv-download {
+      display: none;
+    }
+
+    @media (min-width: 50em) {
+      .hero {
+        display: grid;
+        grid-template-areas:
+          "hero portrait"
+          "hero cv";
+        grid-template-columns: 6fr 4fr;
+        grid-template-rows: 1fr auto;
+        padding-inline: 2.5rem;
+        column-gap: 3.75rem;
+        row-gap: 1rem;
+      }
+
+      .hero-title {
+        grid-area: hero;
+      }
+
+      .portrait {
+        grid-area: portrait;
+      }
+
+      .cv-download {
+        display: flex;
+        gap: 0.5rem;
+        grid-area: cv;
+        justify-self: center;
+      }
+
+      .roles {
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (min-width: 60em) {
+      .hero {
+        grid-template-areas:
+          "hero portrait"
+          "cv portrait";
+        grid-template-rows: min-content auto;
+      }
+
+      .hero-title {
+        align-self: end;
+      }
+
+      .cv-download {
+        justify-self: start;
+        align-self: start;
+      }
+    }
+  </style>
+</BaseLayout>
